@@ -1,5 +1,5 @@
 node_modules
-config/database
+config/database/test.json
 coverage
 .env
-pacakage-lock.json
+package-lock.json
