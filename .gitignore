@@ -1,0 +1,5 @@
+node_modules
+config/database
+coverage
+.env
+pacakage-lock.json
