@@ -27,7 +27,7 @@ describe('UserRegister', () => {
     // Arrange
     const payload = {
       name: 'darma',
-      ktp: 1234567890123456,
+      ktp: 12345678901234567n,
       current_address: 'alamat sekarang',
       old_address: 'alamat sebelumnya',
     };
