@@ -1,3 +1,4 @@
+/* eslint-disable no-loss-of-precision */
 /* eslint-disable camelcase */
 const UserRegister = require('../UserRegister');
 
@@ -27,7 +28,7 @@ describe('UserRegister', () => {
     // Arrange
     const payload = {
       name: 'darma',
-      ktp: 12345678901234567n,
+      ktp: 12345678901234567,
       current_address: 'alamat sekarang',
       old_address: 'alamat sebelumnya',
     };
