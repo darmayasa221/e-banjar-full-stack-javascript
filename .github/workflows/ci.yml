@@ -18,6 +18,9 @@ jobs:
         image: postgres:14
         env: 
           POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD_TEST }}
+          POSTGRES_HOST: ${{ secrets.PGHOST_TEST }}
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -46,5 +49,3 @@ jobs:
         PGDATABASE: ${{ secrets.PGDATABASE_TEST }}
         PGPASSWORD: ${{ secrets.PGPASSWORD_TEST }}
         PGPORT: ${{ secrets.PGPORT_TEST }}
-        POSTGRES_HOST: ${{ secrets.PGHOST_TEST }}
-        POSTGRES_PORT: ${{ secrets.PGHOST_TEST }}
