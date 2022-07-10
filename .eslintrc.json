@@ -11,5 +11,8 @@
         "ecmaVersion": "latest"
     },
     "rules": {
+        "class-methods-use-this":"off",
+        "no-unused-vars":"off",
+        "no-underscore-dangle":"off"
     }
 }
