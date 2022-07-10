@@ -44,16 +44,20 @@ describe('UserRegister', () => {
       old_address: 'alamat sebelumnya',
     };
     // Action
+    const user = new UserRegister(payload);
     const {
       name,
       ktp,
       current_address,
       old_address,
-    } = new UserRegister(payload);
+    } = user;
+
     // Assert
     expect(name).toEqual(payload.name);
     expect(ktp).toEqual(payload.ktp);
     expect(current_address).toEqual(payload.current_address);
     expect(old_address).toEqual(payload.old_address);
+    expect(user).toHaveProperty('created_at');
+    expect(user).toHaveProperty('updated_at');
   });
 });

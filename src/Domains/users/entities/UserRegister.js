@@ -14,6 +14,8 @@ class UserRegister {
     this.ktp = ktp;
     this.current_address = current_address;
     this.old_address = old_address;
+    this.created_at = new Date().toDateString();
+    this.updated_at = '';
   }
 
   _verifyPayload({
