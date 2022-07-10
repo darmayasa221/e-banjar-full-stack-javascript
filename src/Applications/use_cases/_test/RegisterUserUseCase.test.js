@@ -22,8 +22,12 @@ describe('RegisterUserUseCase', () => {
       .mockImplementation(() => Promise.resolve('encrypted_password'));
     mockPasswordHash.registerUser = jest.fn()
       .mockImplementation(() => Promise.resolve());
-    // Ation
-    await RegisterUserUseCase.execute(useCasePayload);
+    const registerUserUseCase = new RegisterUserUseCase({
+      userRepository: mockUserRepository,
+      passwordHash: mockPasswordHash,
+    });
+    // Action
+    await registerUserUseCase.execute(useCasePayload);
     // Assert
     expect(mockUserRepository.verifyAvailableKtp).toBeCalledWith(useCasePayload.ktp);
     expect(mockPasswordHash.hash).toBeCalledWith(useCasePayload.ktp);

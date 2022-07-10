@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+const InvariantError = require('../../Commons/exceptions/InvariantError');
 const UserRepository = require('../../Domains/users/UserRepository');
 
 class UserRepositoryPostgres extends UserRepository {
@@ -12,6 +13,7 @@ class UserRepositoryPostgres extends UserRepository {
     const {
       name,
       ktp,
+      password,
       current_address,
       old_address,
       created_at,
@@ -20,8 +22,8 @@ class UserRepositoryPostgres extends UserRepository {
     const id = `user-${this._idGenerator()}`;
     const query = {
       text: `INSERT INTO users
-      VALUES($1,$2,$3,$4,$5,$6,$7)`,
-      vlaues: [id, name, ktp, current_address, old_address, created_at, updated_at],
+      VALUES($1,$2,$3,$4,$5,$6,$7,$8)`,
+      vlaues: [id, name, ktp, password, current_address, old_address, created_at, updated_at],
     };
 
     await this._pool.query(query);
@@ -34,7 +36,10 @@ class UserRepositoryPostgres extends UserRepository {
       WHERE ktp = $1`,
       values: [ktp],
     };
-    await this.pool.query(query);
+    const { rowCount } = await this._pool.query(query);
+    if (rowCount) {
+      throw new InvariantError('error');
+    }
   }
 }
 

@@ -37,6 +37,9 @@ exports.up = (pgm) => {
       type: 'TEXT',
     },
   });
+  pgm.alterColumn('users', 'ktp', {
+    type: 'BIGINT',
+  });
 };
 
 exports.down = (pgm) => {
