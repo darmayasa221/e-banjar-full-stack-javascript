@@ -22,7 +22,10 @@ describe('RegisterUserUseCase', () => {
       .mockImplementation(() => Promise.resolve('encrypted_password'));
     mockPasswordHash.registerUser = jest.fn()
       .mockImplementation(() => Promise.resolve());
-    const registerUserUseCase = new RegisterUserUseCase();
+    const registerUserUseCase = new RegisterUserUseCase({
+      userRepository: mockUserRepository,
+      passwordHash: mockPasswordHash,
+    });
     // Action
     await registerUserUseCase.execute(useCasePayload);
     // Assert
