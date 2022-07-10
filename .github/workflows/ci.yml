@@ -27,6 +27,7 @@ jobs:
           PGDATABASE: ${{ secrets.PGDATABASE_TEST }}
           PGPASSWORD: ${{ secrets.PGPASSWORD_TEST }}
           PGPORT: ${{ secrets.PGPORT_TEST }}
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
