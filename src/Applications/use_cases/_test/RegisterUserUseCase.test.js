@@ -31,7 +31,7 @@ describe('RegisterUserUseCase', () => {
     // Assert
     expect(mockUserRepository.verifyAvailableKtp).toBeCalledWith(useCasePayload.ktp);
     expect(mockPasswordHash.hash).toBeCalledWith(useCasePayload.ktp);
-    expect(mockUserRepository.registerUser).toBeCalled({
+    expect(mockUserRepository.registerUser).toBeCalledWith({
       ...new UserRegister({
         name: 'darma',
         ktp: 1234567890123456,
