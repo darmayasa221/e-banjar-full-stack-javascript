@@ -9,7 +9,7 @@ class RegisterUserUseCase {
   async execute(payload) {
     const user = new UserRegister(payload);
     await this._userRepository.verifyAvailableKtp(user.ktp);
-    user.password = this._passwordHash.hash(user.ktp);
+    user.password = await this._passwordHash.hash(user.ktp);
     await this._userRepository.registerUser(user);
   }
 }

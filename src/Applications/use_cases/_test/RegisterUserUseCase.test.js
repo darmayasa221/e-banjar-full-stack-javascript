@@ -20,7 +20,7 @@ describe('RegisterUserUseCase', () => {
       .mockImplementation(() => Promise.resolve());
     mockPasswordHash.hash = jest.fn()
       .mockImplementation(() => Promise.resolve('encrypted_password'));
-    mockPasswordHash.registerUser = jest.fn()
+    mockUserRepository.registerUser = jest.fn()
       .mockImplementation(() => Promise.resolve());
     const registerUserUseCase = new RegisterUserUseCase({
       userRepository: mockUserRepository,
@@ -31,12 +31,14 @@ describe('RegisterUserUseCase', () => {
     // Assert
     expect(mockUserRepository.verifyAvailableKtp).toBeCalledWith(useCasePayload.ktp);
     expect(mockPasswordHash.hash).toBeCalledWith(useCasePayload.ktp);
-    expect(mockUserRepository.registerUser).toBeCalled({
-      name: 'darma',
+    expect(mockUserRepository.registerUser).toBeCalledWith({
+      ...new UserRegister({
+        name: 'darma',
+        ktp: 1234567890123456,
+        current_address: 'alamat sekarang',
+        old_address: 'alamat sebelumnya',
+      }),
       password: 'encrypted_password',
-      ktp: 1234567890123456,
-      current_address: 'alamat sekarang',
-      old_address: 'alamat sebelumnya',
     });
   });
 });

@@ -23,7 +23,7 @@ class UserRepositoryPostgres extends UserRepository {
     const query = {
       text: `INSERT INTO users
       VALUES($1,$2,$3,$4,$5,$6,$7,$8)`,
-      vlaues: [id, name, ktp, password, current_address, old_address, created_at, updated_at],
+      values: [id, name, password, ktp, current_address, old_address, created_at, updated_at],
     };
 
     await this._pool.query(query);

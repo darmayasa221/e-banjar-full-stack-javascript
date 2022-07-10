@@ -40,7 +40,7 @@ describe('UserRepositoryPostgres', () => {
       const fakeIdGenerator = () => '0001';
       const userRepositoryPostgres = new UserRepositoryPostgres(pool, fakeIdGenerator);
       // Action
-      await userRepositoryPostgres.registerUser(userRegister);
+      await userRepositoryPostgres.registerUser({ ...userRegister, password: 'secret' });
       // Asert
       const users = await UsersTableTestHelper.findUserByKtp(1234567890123456);
       expect(users).toHaveLength(1);
