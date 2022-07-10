@@ -32,11 +32,13 @@ describe('RegisterUserUseCase', () => {
     expect(mockUserRepository.verifyAvailableKtp).toBeCalledWith(useCasePayload.ktp);
     expect(mockPasswordHash.hash).toBeCalledWith(useCasePayload.ktp);
     expect(mockUserRepository.registerUser).toBeCalled({
-      name: 'darma',
+      ...new UserRegister({
+        name: 'darma',
+        ktp: 1234567890123456,
+        current_address: 'alamat sekarang',
+        old_address: 'alamat sebelumnya',
+      }),
       password: 'encrypted_password',
-      ktp: 1234567890123456,
-      current_address: 'alamat sekarang',
-      old_address: 'alamat sebelumnya',
     });
   });
 });
