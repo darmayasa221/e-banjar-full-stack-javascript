@@ -3,7 +3,7 @@
 const { createContainer } = require('instances-container');
 
 // external agency
-const { nanoid } = require('nanoid');
+const nanoid = require('nanoid');
 const bcrypt = require('bcrypt');
 const pool = require('./database/postgres/pool');
 // Service
@@ -12,7 +12,7 @@ const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres');
 const PasswordHash = require('../Applications/security/PasswordHash');
 // use case
 const RegisterUserUseCase = require('../Applications/use_cases/RegisterUserUseCase');
-const BcryptPasswordHash = require('./security/BcryptPaasswordHash');
+const BcryptPasswordHash = require('./security/BcryptPasswordHash');
 // container
 const container = createContainer();
 
