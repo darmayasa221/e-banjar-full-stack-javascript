@@ -9,9 +9,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll --coverage --setupFiles dotenv/config",
     "migrate": "node-pg-migrate",
-    "migrate:test":"node-pg-migrate -f config/database/test.json"
+    "migrate:test": "node-pg-migrate -f config/database/test.json"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/darmayasa221/e-banjar-full-stack-javascript.git"
