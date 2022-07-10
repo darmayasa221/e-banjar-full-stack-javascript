@@ -16,17 +16,10 @@ jobs:
     services:
       postgres:
         image: postgres:14
-        env:
-          PGHOST_TEST: ${{ secrets.PGHOST_TEST }}
-          PGUSER_TEST: ${{ secrets.PGUSER_TEST }}
-          PGDATABASE_TEST: ${{ secrets.PGDATABASE_TEST }}
-          PGPASSWORD_TEST: ${{ secrets.PGPASSWORD_TEST }}
-          PGPORT_TEST: ${{ secrets.PGPORT_TEST }}
-          PGHOST: ${{ secrets.PGHOST_TEST }}
-          PGUSER: ${{ secrets.PGUSER_TEST }}
-          PGDATABASE: ${{ secrets.PGDATABASE_TEST }}
-          PGPASSWORD: ${{ secrets.PGPASSWORD_TEST }}
-          PGPORT: ${{ secrets.PGPORT_TEST }}
+          env: 
+            POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD_TEST }}
+            POSTGRES_HOST: ${{ secrets.PGHOST_TEST }}
+            POSTGRES_PORT: ${{ secrets.PGHOST_TEST }}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -44,3 +37,14 @@ jobs:
         npm install
         npm run migrate up
         npm run test
+      env:
+        PGHOST_TEST: ${{ secrets.PGHOST_TEST }}
+        PGUSER_TEST: ${{ secrets.PGUSER_TEST }}
+        PGDATABASE_TEST: ${{ secrets.PGDATABASE_TEST }}
+        PGPASSWORD_TEST: ${{ secrets.PGPASSWORD_TEST }}
+        PGPORT_TEST: ${{ secrets.PGPORT_TEST }}
+        PGHOST: ${{ secrets.PGHOST_TEST }}
+        PGUSER: ${{ secrets.PGUSER_TEST }}
+        PGDATABASE: ${{ secrets.PGDATABASE_TEST }}
+        PGPASSWORD: ${{ secrets.PGPASSWORD_TEST }}
+        PGPORT: ${{ secrets.PGPORT_TEST }}
