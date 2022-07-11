@@ -8,7 +8,7 @@ describe('DomainErrorTranslator', () => {
     expect(DomainErrorTranslator.translate(new Error('USER_REGISTER.NOT_MEET_DATA_TYPE_SPECIFICATION')))
       .toStrictEqual(new InvariantError('registrasi gagal. tipe data yang dimasukan tidak sesuai'));
     expect(DomainErrorTranslator.translate(new Error('USER_REGISTER.KTP_OF_LENGTH_GREETER_THEN_16')))
-      .toStrictEqual(new InvariantError('registrasi gagal. ktp yang dimasukkan salah'));
+      .toStrictEqual(new InvariantError('registrasi gagal. jumlah ktp melebihi 16 digit'));
   });
   it('should return original error when error message is not needed to translate', () => {
     // Arrange
