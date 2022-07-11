@@ -30,7 +30,7 @@ describe('HTTP server', () => {
       const responseJson = JSON.parse(response.payload);
       expect(responseJson.status).toEqual('success');
       expect(response.statusCode).toEqual(201);
-      expect(response.message).toEqual('Terimakasih sudah melakukan pendaftaran di E-banjar');
+      expect(responseJson.message).toEqual('Terimakasih sudah melakukan pendaftaran di E-banjar');
     });
   });
 });
