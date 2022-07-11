@@ -1,6 +1,7 @@
 const PasswordHash = require('../../Applications/security/PasswordHash');
 
 class BcryptPasswordHash extends PasswordHash {
+
   constructor(bcyrpt, saltRound = 10) {
     super();
     this._bcyrpt = bcyrpt;
