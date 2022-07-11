@@ -12,7 +12,7 @@ const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres');
 const PasswordHash = require('../Applications/security/PasswordHash');
 // use case
 const RegisterUserUseCase = require('../Applications/use_cases/RegisterUserUseCase');
-const BcryptPasswordHash = require('./security/BcryptPaasswordHash');
+const BcryptPasswordHash = require('./security/BcryptPasswordHash');
 // container
 const container = createContainer();
 
