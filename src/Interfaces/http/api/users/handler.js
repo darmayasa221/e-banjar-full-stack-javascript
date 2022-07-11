@@ -5,7 +5,7 @@ class UsersHandler {
   }
 
   async registerUserHandler({ payload }, h) {
-    const registerUserUseCase = this._container.getInstance('RegisterUseUseCasse');
+    const registerUserUseCase = this._container.getInstance('RegisterUserUseCase');
     await registerUserUseCase.execute(payload);
     const response = h.response({
       status: 'success',
