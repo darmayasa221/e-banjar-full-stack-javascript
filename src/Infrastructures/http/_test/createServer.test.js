@@ -104,7 +104,7 @@ describe('HTTP server', () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('registrasi gagal. jumlah ktp melebihi 16');
+      expect(responseJson.message).toEqual('registrasi gagal. jumlah ktp melebihi 16 digit');
     });
     it('should response 400 when ktp available', async () => {
       // Arrange
