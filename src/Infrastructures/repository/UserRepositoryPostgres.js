@@ -38,7 +38,7 @@ class UserRepositoryPostgres extends UserRepository {
     };
     const { rowCount } = await this._pool.query(query);
     if (rowCount) {
-      throw new InvariantError('error');
+      throw new InvariantError('registrasi gagal. ktp yang dimasukkan salah');
     }
   }
 }
