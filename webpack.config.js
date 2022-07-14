@@ -1,3 +1,4 @@
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
@@ -41,10 +42,12 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
+
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/Interfaces/web/index.html',
+      template: './src/Interfaces/UI/index.html',
     }),
+    new ReactRefreshPlugin(),
   ],
   devServer: {
     hot: true,
