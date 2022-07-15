@@ -9,8 +9,8 @@ export default function Register() {
   return (
     <Template>
       <Header link_one="home" link_two="Login" />
-      <WrapMain className="justify-center items-center">
-        <Card className="h-2/5 w-2/5 p-8 ">
+      <WrapMain className="flex justify-center items-center">
+        <Card className="w-11/12 h-80 p-4 flex sm:w-9/12 sm:h-2/5 md:p-8 xl:w-1/2">
           <RegisterUserForm />
         </Card>
       </WrapMain>
