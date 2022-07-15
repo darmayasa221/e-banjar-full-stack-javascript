@@ -14,6 +14,9 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {},
-  "ignorePatterns": ["dist"]
+  "rules": {
+    "react/jsx-no-useless-fragment": "off",
+    "no-underscore-dangle": "off"
+  },
+  "ignorePatterns": ["/dist"]
 }
