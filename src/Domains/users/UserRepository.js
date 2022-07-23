@@ -1,5 +1,9 @@
 class UserRepository {
-  registerUser(state) {
+  userRegister(state, dispatch) {
+    throw new Error('METHOD_NOT_IMPLEMENTED');
+  }
+
+  responseServer(state, dispatch) {
     throw new Error('METHOD_NOT_IMPLEMENTED');
   }
 }

@@ -1,14 +1,18 @@
-const { createContainer } = require('instances-container');
+const Container = require('instances-container');
+const { useDispatch } = require('react-redux');
 
 // services
 const Requests = require('../Applications/Api/Requests');
 const RegisterUserUseCase = require('../Applications/use_case/RegisterUserUseCase');
+const DomainErrorTranslator = require('../Commons/exceptions/DomainErrorTranslator');
+const ErrorRpository = require('../Domains/users/ErrorRepository');
 const UserRepository = require('../Domains/users/UserRepository');
 const RequestsApi = require('./Api/RequestsApi');
+const ErrorRepositoryImplement = require('./repository/error/ErrorRepositoryImplement');
 const UserRepositoryRedux = require('./repository/redux/UserRepositoryRedux');
 // use case
 
-const container = createContainer();
+const container = Container.createContainer();
 
 container.register([
   {
@@ -18,6 +22,25 @@ container.register([
   {
     key: UserRepository.name,
     Class: UserRepositoryRedux,
+    parameter: {
+      dependencies: [
+        {
+          concrete: useDispatch,
+        },
+      ],
+    },
+  },
+  {
+    key: ErrorRpository.name,
+    Class: ErrorRepositoryImplement,
+    parameter: {
+      injectType: 'parameter',
+      dependencies: [
+        {
+          concrete: DomainErrorTranslator,
+        },
+      ],
+    },
   },
 ]);
 
@@ -29,12 +52,16 @@ container.register([
       injectType: 'destructuring',
       dependencies: [
         {
-          concrete: 'request',
+          name: 'request',
           internal: Requests.name,
         },
         {
-          concrete: 'userRepository',
+          name: 'userRepository',
           internal: UserRepository.name,
+        },
+        {
+          name: 'errorRepository',
+          internal: ErrorRpository.name,
         },
       ],
     },

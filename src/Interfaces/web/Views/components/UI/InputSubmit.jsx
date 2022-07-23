@@ -17,6 +17,7 @@ export default function InputSubmit(props) {
         type={props.type}
         onChange={props.onChange}
         id={props.id}
+        value={props.value}
       />
     </>
   );

@@ -42,7 +42,6 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
-
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: './src/Infrastructures/web/index.html',
@@ -50,6 +49,7 @@ module.exports = {
     new ReactRefreshPlugin(),
   ],
   devServer: {
+    historyApiFallback: true,
     hot: true,
   },
 };

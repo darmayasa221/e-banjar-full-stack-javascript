@@ -7,10 +7,18 @@ class RequestsApi extends Api {
   }
 
   async post(url, state) {
-    const response = await fetch(process.env.REGISTER_USER, {
+    const responeJson = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       method: 'POST',
-      body: JSON.parse(state),
+      body: JSON.stringify(state),
     });
+    const response = await responeJson.json();
+    if (response.status === 'fail') {
+      throw new Error(response.message);
+    }
+    return response;
   }
 }
 

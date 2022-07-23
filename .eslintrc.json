@@ -18,7 +18,8 @@
     "react/jsx-no-useless-fragment": "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "max-len": "off"
   },
   "ignorePatterns": ["/dist"]
 }

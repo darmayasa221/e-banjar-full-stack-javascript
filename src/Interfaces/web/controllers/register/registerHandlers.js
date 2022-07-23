@@ -1,24 +1,43 @@
-import { useDispatch } from 'react-redux';
-import register from '../../Models/register';
+const { useDispatch, useSelector } = require('react-redux');
+const container = require('../../../../Infrastructures/container');
+const errors = require('../../Models/error');
+const responseServer = require('../../Models/responseServer');
+const userRegister = require('../../Models/userRegister');
 
-const registerHandlers = (container) => {
+const registerHandlers = () => {
   const dispatch = useDispatch();
-  const registerAction = register.actions;
+  const stateUserRegister = useSelector((state) => state.userRegister);
+  const {
+    name,
+    ktp,
+    currentAddress,
+    oldAddress,
+    actionUserRegister,
+  } = userRegister.actions;
+  const {
+    actionError,
+  } = errors.actions;
+  const {
+    actionResponseServer,
+  } = responseServer.actions;
   const onChangeName = (event) => {
-    dispatch(registerAction.inputName(event.target.value));
+    dispatch(name(event.target.value));
   };
   const onChangeKtp = (event) => {
-    dispatch(registerAction.inputKtp(event.target.value));
+    dispatch(ktp(event.target.value));
   };
   const onChangeCurrentAddress = (event) => {
-    dispatch(registerAction.inputCurrentAddress(event.target.value));
+    dispatch(currentAddress(event.target.value));
   };
   const onChangeOldAddress = (event) => {
-    dispatch(registerAction.inputOldAddress(event.target.value));
+    dispatch(oldAddress(event.target.value));
   };
-  const onHandlreRegister = (event) => {
+  const onHandlreRegister = async (event) => {
     event.preventDefault();
-    dispatch(registerAction.handlerRegister(container));
+    const registerUserUseCase = container.getInstance('RegisterUserUseCase');
+    await registerUserUseCase.execute(stateUserRegister, {
+      dispatch, actionUserRegister, actionError, actionResponseServer,
+    });
   };
   return [
     onChangeName,
@@ -29,4 +48,4 @@ const registerHandlers = (container) => {
   ];
 };
 
-export default registerHandlers;
+module.exports = registerHandlers;
