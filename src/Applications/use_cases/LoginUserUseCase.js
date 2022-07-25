@@ -19,7 +19,7 @@ class LoginUserUseCase {
   async execute(payload) {
     const { username, password } = new UserLogin(payload);
     const encryptedPassword = await this._userRepository.getPasswordByKtp(username);
-    await this._passwordHash.comparedPassword(password, encryptedPassword);
+    await this._passwordHash.comparePassword(password, encryptedPassword);
     const name = await this._userRepository.getNameByKtp(username);
     const accessToken = await this._authenticationTokenManager
       .createAccessToken({ ktp: username, name });
