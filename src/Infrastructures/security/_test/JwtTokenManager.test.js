@@ -15,7 +15,7 @@ describe('JwtTokenManager', () => {
       };
       const jwtTokenManager = new JwtTokenManager(mockJwtToken);
       // action
-      const accessToken = await jwtTokenManager.createAcceessToken(payload);
+      const accessToken = await jwtTokenManager.createAccessToken(payload);
       // Assert
       expect(mockJwtToken.generate).toBeCalledWith(payload, process.env.ACCESS_TOKEN_KEY);
       expect(accessToken).toEqual('mock_token');
@@ -43,7 +43,7 @@ describe('JwtTokenManager', () => {
     it('should throw InvariantError when verification failed', async () => {
       // Arrange
       const jwtTokenManager = new JwtTokenManager(Jwt.token);
-      const accessToken = await jwtTokenManager.createAcceessToken({
+      const accessToken = await jwtTokenManager.createAccessToken({
         ktp: 1234567890123456,
         name: 'jhon',
       });
@@ -69,7 +69,7 @@ describe('JwtTokenManager', () => {
     it('should decode payload correctly', async () => {
       // Arrange
       const jwtTokenManager = new JwtTokenManager(Jwt.token);
-      const accessToken = await jwtTokenManager.createAcceessToken({
+      const accessToken = await jwtTokenManager.createAccessToken({
         ktp: 1234567890123456,
         name: 'jhon',
       });
