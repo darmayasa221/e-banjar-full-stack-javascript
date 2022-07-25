@@ -1,4 +1,3 @@
-
 const InvariantError = require('../../Commons/exceptions/InvariantError');
 const AuthenticationRepository = require('../../Domains/authentications/AuthenticationRepository');
 
