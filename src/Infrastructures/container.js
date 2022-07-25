@@ -64,7 +64,7 @@ container.register([
     parameter: {
       dependencies: [
         {
-          concrete: Jwt,
+          concrete: Jwt.token,
         },
       ],
     },

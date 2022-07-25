@@ -46,4 +46,40 @@ describe('UserRepositoryPostgres', () => {
       expect(users).toHaveLength(1);
     });
   });
+  describe('getPasswordByKtp Function', () => {
+    it('shuld throw InvariantError when ktp not fund', async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+      // Action and Assert
+      await expect(() => userRepositoryPostgres.getPasswordByKtp(1234567890123456))
+        .rejects.toThrowError(InvariantError);
+    });
+    it('should return password when ktp is found', async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+      await UsersTableTestHelper.registerUser({ ktp: 1234567890123456, password: 'seccret_password' });
+
+      // Action and Asssert
+      const password = await userRepositoryPostgres.getPasswordByKtp(1234567890123456);
+      expect(password).toBe('seccret_password');
+    });
+  });
+  describe('getNameByKtp Function', () => {
+    it('shuld throw InvariantError when ktp not fund', async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+      // Action and Assert
+      await expect(() => userRepositoryPostgres.getNameByKtp(1234567890123456))
+        .rejects.toThrowError(InvariantError);
+    });
+    it('should return name when ktp is found', async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+      await UsersTableTestHelper.registerUser({ ktp: 1234567890123456, name: 'jhon' });
+
+      // Action and Asssert
+      const name = await userRepositoryPostgres.getNameByKtp(1234567890123456);
+      expect(name).toBe('jhon');
+    });
+  });
 });
