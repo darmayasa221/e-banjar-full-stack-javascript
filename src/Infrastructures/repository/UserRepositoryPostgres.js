@@ -41,6 +41,34 @@ class UserRepositoryPostgres extends UserRepository {
       throw new InvariantError('registrasi gagal. ktp yang dimasukkan salah');
     }
   }
+
+  async getNameByKtp(ktp) {
+    const query = {
+      text: `SELECT name
+      FROM users
+      WHERE ktp = $1`,
+      values: [ktp],
+    };
+    const { rowCount, rows } = await this._pool.query(query);
+    if (!rowCount) {
+      throw new InvariantError('user tidak ditemukan');
+    }
+    return rows[0].name;
+  }
+
+  async getPasswordByKtp(ktp) {
+    const query = {
+      text: `SELECT password
+      FROM users
+      WHERE ktp = $1`,
+      values: [ktp],
+    };
+    const { rowCount, rows } = await this._pool.query(query);
+    if (!rowCount) {
+      throw new InvariantError('user tidak ditemukan');
+    }
+    return rows[0].password;
+  }
 }
 
 module.exports = UserRepositoryPostgres;
