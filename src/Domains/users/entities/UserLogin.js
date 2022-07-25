@@ -1,4 +1,3 @@
-
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
 class UserLogin {
@@ -17,7 +16,6 @@ class UserLogin {
       throw new Error('USER_LOGIN.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
   }
-
 }
 
 module.exports = UserLogin;
