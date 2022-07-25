@@ -57,7 +57,7 @@ describe('UserRepositoryPostgres', () => {
     it('should return password when ktp is found', async () => {
       // Arrange
       const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
-      await UsersTableTestHelper.registerUser({ ktp: 1234567890123456 });
+      await UsersTableTestHelper.registerUser({ ktp: 1234567890123456, password: 'seccret_password' });
 
       // Action and Asssert
       const password = await userRepositoryPostgres.getPasswordByKtp(1234567890123456);
@@ -75,7 +75,7 @@ describe('UserRepositoryPostgres', () => {
     it('should return name when ktp is found', async () => {
       // Arrange
       const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
-      await UsersTableTestHelper.registerUser({ ktp: 1234567890123456 });
+      await UsersTableTestHelper.registerUser({ ktp: 1234567890123456, name: 'jhon' });
 
       // Action and Asssert
       const name = await userRepositoryPostgres.getNameByKtp(1234567890123456);
