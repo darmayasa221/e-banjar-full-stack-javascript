@@ -18,7 +18,7 @@ describe('AuthenticationRepositoryPostgres', () => {
       // Action
       await authenticationRepositoryPostgres.addToken(token);
       // Assert
-      const tokens = await AuthenticationsTableTestHelper.addToken(token);
+      const tokens = await AuthenticationsTableTestHelper.findToken(token);
       expect(tokens).toHaveLength(1);
       expect(tokens[0].token).toBe(token);
     });
