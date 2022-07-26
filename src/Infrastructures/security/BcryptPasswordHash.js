@@ -15,7 +15,7 @@ class BcryptPasswordHash extends PasswordHash {
   async comparePassword(password, hashedPassword) {
     const match = await this._bcyrpt.compare(password.toString(), hashedPassword);
     if (!match) {
-      throw new AuthenticationError('password yang dimasukkan salah');
+      throw new AuthenticationError('password salah');
     }
   }
 }
