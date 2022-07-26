@@ -9,6 +9,10 @@ describe('DomainErrorTranslator', () => {
       .toStrictEqual(new InvariantError('registrasi gagal. tipe data yang dimasukan tidak sesuai'));
     expect(DomainErrorTranslator.translate(new Error('USER_REGISTER.KTP_OF_LENGTH_GREETER_THEN_16')))
       .toStrictEqual(new InvariantError('registrasi gagal. jumlah ktp melebihi 16 digit'));
+    expect(DomainErrorTranslator.translate('NEW_AUTH.NOT_CONTAIN_NEEDED_PROPERTY'))
+      .toStrictEqual(new InvariantError('username dan password tidak boleh kosong'));
+    expect(DomainErrorTranslator.translate('NEW_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION'))
+      .toStrictEqual(new InvariantError('masukkan username dan password dengan data yang benar'));
   });
   it('should return original error when error message is not needed to translate', () => {
     // Arrange
