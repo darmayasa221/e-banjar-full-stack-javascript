@@ -9,10 +9,8 @@ describe('/authentications endpoint', () => {
     await pool.end();
   });
   afterEach(async () => {
-    Promise.all([
-      await UsersTableTestHelper.cleanTable(),
-      await AuthenticationsTableTestHelper.cleanTable(),
-    ]);
+    await UsersTableTestHelper.cleanTable();
+    await AuthenticationsTableTestHelper.cleanTable();
   });
   describe('when POST /authentications', () => {
     it('should response 201 and new authentication', async () => {
