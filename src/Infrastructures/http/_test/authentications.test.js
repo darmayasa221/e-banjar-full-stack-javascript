@@ -9,8 +9,10 @@ describe('/authentications endpoint', () => {
     await pool.end();
   });
   afterEach(async () => {
-    await UsersTableTestHelper.cleanTable();
-    await AuthenticationsTableTestHelper.cleanTable();
+    Promise.all([
+      await UsersTableTestHelper.cleanTable(),
+      await AuthenticationsTableTestHelper.cleanTable(),
+    ]);
   });
   describe('when POST /authentications', () => {
     it('should response 201 and new authentication', async () => {
@@ -61,7 +63,7 @@ describe('/authentications endpoint', () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(400);
       expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('username tidak ditemukan');
+      expect(responseJson.message).toEqual('pengguna tidak ditemukan');
     });
     it('should response 401 if password wrong', async () => {
       // Arrange
@@ -91,7 +93,7 @@ describe('/authentications endpoint', () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(401);
       expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('password salah');
+      expect(responseJson.message).toEqual('massukkan password dengan benar');
     });
     it('should response 400 if login payload did not contain needed property', async () => {
       // Arrange
