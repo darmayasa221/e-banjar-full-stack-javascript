@@ -1,10 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import loginHandlers from '../../../controllers/login/loginHandlers';
 import Input from '../UI/Input';
 import InputSubmit from '../UI/InputSubmit';
 import WrapInput from '../UI/WrapInput';
 
 export default function LoginUserForm() {
+  const { username, password } = useSelector((state) => state.loginUser);
   const [onChangeUsername, onChangePassword, onHandlerLogin] = loginHandlers();
   return (
     <>
@@ -19,6 +21,7 @@ export default function LoginUserForm() {
             type="text"
             onChange={onChangeUsername}
             placeholder="5102xxxxxxxxxxxx1"
+            value={username}
           />
           <Input
             labelClassName="text-sm font-black text-gray-600"
@@ -26,6 +29,7 @@ export default function LoginUserForm() {
             type="password"
             onChange={onChangePassword}
             placeholder="****************"
+            value={password}
           />
         </WrapInput>
         <WrapInput className="justify-center items-end sm:h-1/4 sm:items-center">

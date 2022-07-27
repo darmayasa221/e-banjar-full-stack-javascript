@@ -1,4 +1,7 @@
 const { useDispatch, useSelector } = require('react-redux');
+const container = require('../../../../Infrastructures/container');
+const errors = require('../../Models/error');
+const responseServer = require('../../Models/responseServer');
 const loginUser = require('../../Models/userLogin');
 
 const loginHandlers = () => {
@@ -7,16 +10,26 @@ const loginHandlers = () => {
   const {
     username,
     password,
+    actionUserLogin,
   } = loginUser.actions;
+  const {
+    actionError,
+  } = errors.actions;
+  const {
+    actionResponseServer,
+  } = responseServer.actions;
   const onChangeUsername = (event) => {
     dispatch(username(event.target.value));
   };
   const onChangePassword = (event) => {
     dispatch(password(event.target.value));
   };
-  const onHandlerLogin = (event) => {
+  const onHandlerLogin = async (event) => {
     event.preventDefault();
-    console.log(stateLoginUser);
+    const loginUseUseCase = container.getInstance('LoginUserUseCase');
+    await loginUseUseCase.execute(stateLoginUser, {
+      dispatch, actionUserLogin, actionError, actionResponseServer,
+    });
   };
 
   return [

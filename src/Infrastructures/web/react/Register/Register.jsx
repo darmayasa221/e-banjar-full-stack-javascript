@@ -16,7 +16,7 @@ export default function Register(props) {
   );
   return (
     <Template>
-      <Header linkToOne="/" linkToTwo="login" linkOne="home" linkTwo="Login" />
+      <Header linkToOne="/" linkToTwo="/login" linkOne="home" linkTwo="Login" />
       <WrapMain className="flex justify-center items-center relative overflow-x-hidden">
         <Message
           className="text-red-600 "

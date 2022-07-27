@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <Template>
       <Header
-        linkToOne="register"
-        linkToTwo="login"
+        linkToOne="/register"
+        linkToTwo="/login"
         linkOne="register"
         linkTwo="Login"
       />

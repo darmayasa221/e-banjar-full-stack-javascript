@@ -5,8 +5,11 @@ const reducers = {
   password(state, { payload }) {
     state.password = payload;
   },
-  actionLoginUser(state, { payload }) {
-    console.log(state);
+  actionUserLogin(state, { payload }) {
+    return {
+      ...state,
+      ...payload,
+    };
   },
 };
 

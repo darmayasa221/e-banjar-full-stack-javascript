@@ -2,6 +2,7 @@
 /* eslint-disable no-useless-constructor */
 const UserRepository = require('../../../Domains/users/UserRepository');
 const UserRegister = require('../../../Domains/users/entities/UserRegister');
+const UserLogin = require('../../../Domains/users/entities/UserLogin');
 
 class UserRepositoryRedux extends UserRepository {
   constructor() {
@@ -19,10 +20,27 @@ class UserRepositoryRedux extends UserRepository {
     return userRegister;
   }
 
+  userLogin(state, { dispatch, actionUserLogin }) {
+    const userLogin = new UserLogin(state);
+    dispatch(actionUserLogin({
+      username: '',
+      password: '',
+    }));
+    return userLogin;
+  }
+
   responseServer(response, { dispatch, actionResponseServer }) {
+    setTimeout(() => {
+      dispatch(actionResponseServer({
+        status: false,
+        responseMessage: '',
+        data: undefined,
+      }));
+    }, 3000);
     dispatch(actionResponseServer({
       status: response.status,
       responseMessage: response.message,
+      data: !response.data ? undefined : response.data,
     }));
   }
 }
