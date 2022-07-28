@@ -21,7 +21,6 @@ class LoginUserUseCase {
     const encryptedPassword = await this._userRepository.getPasswordByKtp(username);
     const name = await this._userRepository.getNameByKtp(username);
     const id_access = await this._userRepository.getAccessByKtp(username);
-    console.log(id_access);
     await this._passwordHash.comparePassword(password, encryptedPassword);
     const accessToken = await this._authenticationTokenManager
       .createAccessToken({ ktp: username, name, id_access });
