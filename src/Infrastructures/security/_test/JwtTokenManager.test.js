@@ -9,7 +9,7 @@ describe('JwtTokenManager', () => {
       const payload = {
         ktp: 1234567890123456,
         name: 'jhon',
-        id_access: 'users',
+        id_access: 'user',
       };
       const mockJwtToken = {
         generate: jest.fn().mockImplementation(() => 'mock_token'),
@@ -28,7 +28,7 @@ describe('JwtTokenManager', () => {
       const payload = {
         ktp: 1234567890123456,
         name: 'jhon',
-        id_access: 'users',
+        id_access: 'user',
       };
       const mockJwtToken = {
         generate: jest.fn().mockImplementation(() => 'mock_token'),
@@ -48,7 +48,7 @@ describe('JwtTokenManager', () => {
       const accessToken = await jwtTokenManager.createAccessToken({
         ktp: 1234567890123456,
         name: 'jhon',
-        id_access: 'users',
+        id_access: 'user',
       });
       // Action and Assert
       await expect(jwtTokenManager.verifyRefreshToken(accessToken))
@@ -61,7 +61,7 @@ describe('JwtTokenManager', () => {
       const refreshToken = await jwtTokenManager.createRefreshToken({
         ktp: 1234567890123456,
         name: 'jhon',
-        id_access: 'users',
+        id_access: 'user',
       });
       // Action and Assert
       await expect(jwtTokenManager.verifyRefreshToken(refreshToken))
@@ -76,7 +76,7 @@ describe('JwtTokenManager', () => {
       const accessToken = await jwtTokenManager.createAccessToken({
         ktp: 1234567890123456,
         name: 'jhon',
-        id_access: 'users',
+        id_access: 'user',
       });
       // Action
       const {
@@ -87,7 +87,7 @@ describe('JwtTokenManager', () => {
       // Assert
       expect(expectedKtp).toEqual(1234567890123456);
       expect(expectedName).toEqual('jhon');
-      expect(expectedIdAccess).toEqual('users');
+      expect(expectedIdAccess).toEqual('user');
     });
   });
 });

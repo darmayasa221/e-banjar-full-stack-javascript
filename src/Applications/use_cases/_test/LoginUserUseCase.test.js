@@ -29,7 +29,7 @@ describe('LoginUserUseCase', () => {
     mockUserRepository.getNameByKtp = jest.fn()
       .mockImplementation(() => Promise.resolve('jhon'));
     mockUserRepository.getAccessByKtp = jest.fn()
-      .mockImplementation(() => Promise.resolve('users'));
+      .mockImplementation(() => Promise.resolve('user'));
     mockPasswordHash.comparePassword = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockAuthenticationTokenManager.createAccessToken = jest.fn()
@@ -58,9 +58,9 @@ describe('LoginUserUseCase', () => {
     expect(mockPasswordHash.comparePassword)
       .toBeCalledWith(1234567890123456, 'encrypted_password');
     expect(mockAuthenticationTokenManager.createAccessToken)
-      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon', id_access: 'users' });
+      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon', id_access: 'user' });
     expect(mockAuthenticationTokenManager.createRefreshToken)
-      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon', id_access: 'users' });
+      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon', id_access: 'user' });
     expect(mockAuthenticationRepository.addToken)
       .toBeCalledWith(expectedAuthentication.refreshToken);
   });

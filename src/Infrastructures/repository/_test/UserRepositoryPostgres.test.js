@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const InvariantError = require('../../../Commons/exceptions/InvariantError');
 const UserRegister = require('../../../Domains/users/entities/UserRegister');
@@ -88,9 +89,9 @@ describe('UserRepositoryPostgres', () => {
       await UsersTableTestHelper.registerUser({ ktp: 1234567890123456, id_access: '1' });
       const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
       // Action
-      const access = await userRepositoryPostgres.getAccessByKtp(1234567890123456);
+      const id_access = await userRepositoryPostgres.getAccessByKtp(1234567890123456);
       // assert
-      expect(access).toEqual('users');
+      expect(id_access).toEqual('user');
     });
   });
 });
