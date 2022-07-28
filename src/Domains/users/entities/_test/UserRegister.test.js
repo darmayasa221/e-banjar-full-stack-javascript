@@ -57,7 +57,5 @@ describe('UserRegister', () => {
     expect(ktp).toEqual(payload.ktp);
     expect(current_address).toEqual(payload.current_address);
     expect(old_address).toEqual(payload.old_address);
-    expect(user).toHaveProperty('created_at');
-    expect(user).toHaveProperty('updated_at');
   });
 });
