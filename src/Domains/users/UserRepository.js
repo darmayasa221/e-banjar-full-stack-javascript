@@ -14,6 +14,10 @@ class UserRepository {
   async getPasswordByKtp(ktp) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
+
+  async getAccessByKtp(ktp) {
+    throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
 }
 
 module.exports = UserRepository;
