@@ -26,14 +26,16 @@ describe('LoginUserUseCase', () => {
 
     mockUserRepository.getPasswordByKtp = jest.fn()
       .mockImplementation(() => Promise.resolve('encrypted_password'));
+    mockUserRepository.getNameByKtp = jest.fn()
+      .mockImplementation(() => Promise.resolve('jhon'));
+    mockUserRepository.getAccessByKtp = jest.fn()
+      .mockImplementation(() => Promise.resolve('users'));
     mockPasswordHash.comparePassword = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockAuthenticationTokenManager.createAccessToken = jest.fn()
       .mockImplementation(() => Promise.resolve(expectedAuthentication.accessToken));
     mockAuthenticationTokenManager.createRefreshToken = jest.fn()
       .mockImplementation(() => Promise.resolve(expectedAuthentication.refreshToken));
-    mockUserRepository.getNameByKtp = jest.fn()
-      .mockImplementation(() => Promise.resolve('jhon'));
     mockAuthenticationRepository.addToken = jest.fn()
       .mockImplementation(() => Promise.resolve());
 
@@ -51,14 +53,14 @@ describe('LoginUserUseCase', () => {
     expect(actualAuthentication).toEqual(expectedAuthentication);
     expect(mockUserRepository.getPasswordByKtp)
       .toBeCalledWith(1234567890123456);
-    expect(mockPasswordHash.comparePassword)
-      .toBeCalledWith(1234567890123456, 'encrypted_password');
     expect(mockUserRepository.getNameByKtp)
       .toBeCalledWith(1234567890123456);
+    expect(mockPasswordHash.comparePassword)
+      .toBeCalledWith(1234567890123456, 'encrypted_password');
     expect(mockAuthenticationTokenManager.createAccessToken)
-      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon' });
+      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon', id_access: 'users' });
     expect(mockAuthenticationTokenManager.createRefreshToken)
-      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon' });
+      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon', id_access: 'users' });
     expect(mockAuthenticationRepository.addToken)
       .toBeCalledWith(expectedAuthentication.refreshToken);
   });

@@ -82,4 +82,15 @@ describe('UserRepositoryPostgres', () => {
       expect(name).toBe('jhon');
     });
   });
+  describe('getAccessByKtp function', () => {
+    it('should persist to get access by ktp', async () => {
+      // Arrange
+      await UsersTableTestHelper.registerUser({ ktp: 1234567890123456, id_access: '1' });
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+      // Action
+      const access = await userRepositoryPostgres.getAccessByKtp(1234567890123456);
+      // assert
+      expect(access).toEqual('users');
+    });
+  });
 });

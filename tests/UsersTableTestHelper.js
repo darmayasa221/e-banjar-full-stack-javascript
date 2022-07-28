@@ -12,6 +12,7 @@ const UsersTableTestHelper = {
     old_address = 'alamat sebelumnya',
     created_at = new Date().toISOString(),
     updated_at = '',
+    id_access = '1',
   }) {
     const query = {
       text: `INSERT INTO users

@@ -9,5 +9,6 @@ describe('UserRepository Abstract', () => {
     await expect(userRepository.verifyAvailableKtp('')).rejects.toThrowError('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
     await expect(userRepository.getNameByKtp('')).rejects.toThrowError('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
     await expect(userRepository.getPasswordByKtp('')).rejects.toThrowError('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+    await expect(userRepository.getAccessByKtp('')).rejects.toThrowError('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   });
 });
