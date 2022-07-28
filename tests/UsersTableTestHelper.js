@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable camelcase */
 /* istanbul ignore file */
 const pool = require('../src/Infrastructures/database/postgres/pool');
@@ -12,11 +13,12 @@ const UsersTableTestHelper = {
     old_address = 'alamat sebelumnya',
     created_at = new Date().toISOString(),
     updated_at = '',
+    id_access = '1',
   }) {
     const query = {
       text: `INSERT INTO users
-      VALUES($1,$2,$3,$4,$5,$6,$7,$8)`,
-      values: [id, name, password, ktp, current_address, old_address, created_at, updated_at],
+      VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+      values: [id, name, password, ktp, current_address, old_address, created_at, updated_at, id_access],
     };
     await pool.query(query);
   },
