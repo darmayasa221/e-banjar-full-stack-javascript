@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable camelcase */
 const InvariantError = require('../../Commons/exceptions/InvariantError');
 const UserRepository = require('../../Domains/users/UserRepository');
@@ -16,14 +17,15 @@ class UserRepositoryPostgres extends UserRepository {
       password,
       current_address,
       old_address,
-      created_at,
-      updated_at,
+      created_at = new Date().toDateString(),
+      updated_at = '',
+      id_access = '1', // 1 = users, 2 = admin, 3 = root
     } = payload;
     const id = `user-${this._idGenerator()}`;
     const query = {
       text: `INSERT INTO users
       VALUES($1,$2,$3,$4,$5,$6,$7,$8)`,
-      values: [id, name, password, ktp, current_address, old_address, created_at, updated_at],
+      values: [id, name, password, ktp, current_address, old_address, created_at, updated_at, id_access],
     };
 
     await this._pool.query(query);
