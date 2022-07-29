@@ -1,3 +1,5 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable comma-dangle */
 /* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
@@ -8,7 +10,7 @@ import Input from '../UI/Input';
 import InputSubmit from '../UI/InputSubmit';
 import WrapInput from '../UI/WrapInput';
 
-export default function RegisterUserForm(props) {
+export default function RegisterUserForm() {
   const { name, ktp, current_address, old_address } = useSelector(
     (state) => state.userRegister
   );
@@ -18,7 +20,7 @@ export default function RegisterUserForm(props) {
     onChangeCurrentAddress,
     onChangeOldAddress,
     onHandlreRegister,
-  ] = registerHandlers(props.container);
+  ] = registerHandlers();
   return (
     <>
       <form

@@ -19,7 +19,10 @@
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",
     "class-methods-use-this": "off",
-    "max-len": "off"
+    "max-len": "off",
+    "react/destructuring-assignment": "off",
+    "react/prop-types": "off",
+    "no-param-reassign": "off"
   },
   "ignorePatterns": ["/dist"]
 }

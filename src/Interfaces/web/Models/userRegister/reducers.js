@@ -1,7 +1,3 @@
-/* eslint-disable no-param-reassign */
-
-const { current } = require('@reduxjs/toolkit');
-
 const reducers = {
   name(state, { payload }) {
     state.name = payload;

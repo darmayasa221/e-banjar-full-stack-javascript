@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import RegisterUserForm from '../../../../Interfaces/web/Views/components/Form/RegisterUserForm';
@@ -12,6 +10,7 @@ import WrapMain from '../../../../Interfaces/web/Views/components/UI/WrapMain';
 export default function Register(props) {
   const { error, errorMessage } = useSelector((state) => state.errors);
   const { status, responseMessage } = useSelector(
+    // eslint-disable-next-line comma-dangle
     (state) => state.responseServer
   );
   return (
@@ -27,7 +26,7 @@ export default function Register(props) {
         />
         {status && <Message message={responseMessage} />}
         <Card className="w-11/12 h-80 p-4 flex sm:w-9/12 sm:h-2/5 md:p-8 xl:w-1/2">
-          <RegisterUserForm container={props.container} />
+          <RegisterUserForm />
         </Card>
       </WrapMain>
     </Template>

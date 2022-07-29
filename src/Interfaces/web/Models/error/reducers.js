@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const reducers = {
   actionError(state, { payload }) {
     return {
