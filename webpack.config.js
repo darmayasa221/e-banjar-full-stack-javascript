@@ -7,6 +7,7 @@ module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: './src/App.jsx',
   output: {
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundel.[fullhash].js',
     assetModuleFilename: 'img/[hash][ext][query]',
