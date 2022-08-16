@@ -1,18 +1,34 @@
+/* eslint-disable no-unsafe-finally */
+const RegisterUser = require('../../Domains/users/entities/RegisterUser');
+const ClientError = require('../../Commons/exceptions/ClientError');
+
 class RegisterUserUseCase {
-  constructor({ request, userRepository, errorRepository }) {
-    this._request = request;
+  constructor({ userRepository, domainErrorTranslator }) {
     this._userRepository = userRepository;
-    this._errorRepository = errorRepository;
+    this._domainErrorTranslator = domainErrorTranslator;
   }
 
-  async execute(state, action) {
+  async execute(payload) {
+    let result;
     try {
-      const stateUserRegister = this._userRepository.userRegister(state, action);
-      const response = await this._request.post('http://localhost:5000/users', stateUserRegister);
-      this._userRepository.responseServer(response, action);
+      const newPayload = new RegisterUser(payload);
+      result = await this._userRepository.registerUser(newPayload);
     } catch (error) {
-      this._errorRepository.translateError(error, action);
+      result = error;
+    } finally {
+      return this._verifyResult(result);
     }
+  }
+
+  _verifyResult(result) {
+    const translatedError = this._domainErrorTranslator.translate(result);
+    if (translatedError instanceof ClientError) {
+      return {
+        status: translatedError.name,
+        message: translatedError.message,
+      };
+    }
+    return result;
   }
 }
 

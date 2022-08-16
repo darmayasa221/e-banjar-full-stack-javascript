@@ -1,13 +1,9 @@
 class UserRepository {
-  userRegister(state, dispatch) {
+  async registerUser(payload) {
     throw new Error('METHOD_NOT_IMPLEMENTED');
   }
 
-  userLogin(state, dispatch) {
-    throw new Error('METHOD_NOT_IMPLEMENTED');
-  }
-
-  responseServer(state, dispatch) {
+  async loginUser(payload) {
     throw new Error('METHOD_NOT_IMPLEMENTED');
   }
 }
