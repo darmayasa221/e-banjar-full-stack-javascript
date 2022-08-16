@@ -1,17 +1,16 @@
-/* eslint-disable comma-dangle */
 import { createRoot } from 'react-dom/client';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import Controller from './Infrastructures/web/reactJS/Controller';
-import store from './Infrastructures/state/redux/store';
-import slices from './Infrastructures/state/redux/slices';
+import store from './Infrastructures/redux';
+import Controller from './Interfaces/web/controller/Controller';
+import './Infrastructures/web/public/assets/style.css';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    {/* <Provider store={store(slices)}> */}
-    <Controller />
-    {/* </Provider> */}
-  </BrowserRouter>
+    <Provider store={store}>
+      <Controller />
+    </Provider>
+  </BrowserRouter>,
 );

@@ -8,9 +8,6 @@ const RegisterUserUseCase = require('../Applications/use_case/RegisterUserUseCas
 const DomainErrorTranslator = require('../Commons/exceptions/DomainErrorTranslator');
 const ErrorRpository = require('../Domains/users/ErrorRepository');
 const UserRepository = require('../Domains/users/UserRepository');
-const RequestsApi = require('./Api/RequestsApi');
-const ErrorRepositoryImplement = require('./repository/error/ErrorRepositoryImplement');
-const UserRepositoryRedux = require('./repository/redux/UserRepositoryRedux');
 // use case
 
 const container = Container.createContainer();
