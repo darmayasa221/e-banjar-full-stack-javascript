@@ -9,6 +9,9 @@ const createServer = async (container) => {
   const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST,
+    routes: {
+      cors: true,
+    },
   });
 
   await server.register([
