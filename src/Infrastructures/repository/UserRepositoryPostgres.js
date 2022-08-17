@@ -83,6 +83,33 @@ class UserRepositoryPostgres extends UserRepository {
     const { rows } = await this._pool.query(query);
     return rows[0].access;
   }
+
+  async getUserByKtp(ktp, id_access) {
+    const query = {
+      text: `SELECT * FROM users
+      WHERE ktp = $1`,
+      values: [ktp],
+    };
+    const { rows } = await this._pool.query(query);
+    if (id_access === 1) {
+      return rows[0];
+    }
+    if (id_access === 2) {
+      return rows[0];
+    }
+    return rows[0];
+  }
+
+  async verifyAccessUser(id_access) {
+    const query = {
+      text: `SELECT id
+      FROM access
+      WHERE access = $1`,
+      values: [id_access],
+    };
+    const { rows } = await this._pool.query(query);
+    return rows[0];
+  }
 }
 
 module.exports = UserRepositoryPostgres;

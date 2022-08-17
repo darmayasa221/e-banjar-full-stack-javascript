@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 class UserRepository {
   async registerUser(payload) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
@@ -16,6 +17,10 @@ class UserRepository {
   }
 
   async getAccessByKtp(ktp) {
+    throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
+
+  async getUserByKtp(ktp, id_access) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }

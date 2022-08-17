@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-underscore-dangle */
 const NewAuth = require('../../Domains/authentications/entities/NewAuth');
-const UserLogin = require('../../Domains/users/entities/UserLogin');
+const LoginUser = require('../../Domains/users/entities/LoginUser');
 
 class LoginUserUseCase {
   constructor({
@@ -17,7 +17,7 @@ class LoginUserUseCase {
   }
 
   async execute(payload) {
-    const { username, password } = new UserLogin(payload);
+    const { username, password } = new LoginUser(payload);
     const encryptedPassword = await this._userRepository.getPasswordByKtp(username);
     const name = await this._userRepository.getNameByKtp(username);
     const id_access = await this._userRepository.getAccessByKtp(username);
@@ -27,6 +27,8 @@ class LoginUserUseCase {
     const refreshToken = await this._authenticationTokenManager
       .createRefreshToken({ ktp: username, name, id_access });
     const newAuthentication = new NewAuth({
+      name,
+      id_access,
       accessToken,
       refreshToken,
     });

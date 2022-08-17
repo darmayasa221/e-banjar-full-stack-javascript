@@ -14,6 +14,16 @@ class UsersHandler {
     response.code(201);
     return response;
   }
+
+  async getUserByKtpHandler({ auth }, h) {
+    const { ktp: credentialKtp } = auth.credentials;
+    const getUserByKtpUseCase = this._container.getInstance('GetUserByKtpUseCase');
+    const data = await getUserByKtpUseCase.execute(credentialKtp);
+    return {
+      status: 'success',
+      data,
+    };
+  }
 }
 
 module.exports = UsersHandler;
