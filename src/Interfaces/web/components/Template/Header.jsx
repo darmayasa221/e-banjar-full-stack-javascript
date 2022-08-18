@@ -22,15 +22,21 @@ export default function Header(props) {
           textLinkTwo={props.textLinkTwo}
         />
       </header>
-      <Wraper className={`w-full flex justify-end h-auto ${props.authorizationed && 'overflow-hidden relative'}`}>
+      <Wraper className="w-full flex justify-end h-auto overflow-hidden relative z-50">
         <Notification />
-        <Wraper
-          className={`${mode ? 'relative w-96 translate-x-0' : 'translate-x-full'} duration-200 absolute xl:hidden`}
-        >
-          <Card>
-            <MenuList />
-          </Card>
-        </Wraper>
+        {
+          props.authorizationed && (
+            <>
+              <Wraper
+                className={`${mode ? 'relative w-96 translate-x-0' : 'translate-x-full'} duration-200 absolute xl:hidden`}
+              >
+                <Card>
+                  <MenuList />
+                </Card>
+              </Wraper>
+            </>
+          )
+        }
       </Wraper>
     </>
   );

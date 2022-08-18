@@ -20,10 +20,11 @@ class AuthenticationRepositoryWebStorage extends AuthenticationRepository {
     if (!authentication) {
       throw new Error('silahkan login ulang');
     }
-    return {
-      accessToken: authentication.accessToken,
-      name: authentication.name,
-    };
+    return authentication;
+  }
+
+  deleteToken() {
+    localStorage.clear();
   }
 }
 

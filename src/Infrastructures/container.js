@@ -8,6 +8,7 @@ const DomainErrorTranslator = require('../Commons/exceptions/DomainErrorTranslat
 const AuthenticationRepository = require('../Domains/authentications/AuthenticationRepository');
 const AuthenticationRepositoryWebStorage = require('./repository/webStorage/AuthenticationRepositoryWebStorage');
 const GetUserByKtpUseCase = require('../Applications/use_case/GetUserByKtpUseCase');
+const LogoutUserUseCase = require('../Applications/use_case/LogoutUserUseCase');
 
 const container = Container.createContainer();
 
@@ -71,6 +72,27 @@ container.register([
   {
     key: GetUserByKtpUseCase.name,
     Class: GetUserByKtpUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'userRepository',
+          internal: UserRepository.name,
+        },
+        {
+          name: 'domainErrorTranslator',
+          concrete: DomainErrorTranslator,
+        },
+        {
+          name: 'authenticationRepository',
+          internal: AuthenticationRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: LogoutUserUseCase.name,
+    Class: LogoutUserUseCase,
     parameter: {
       injectType: 'destructuring',
       dependencies: [

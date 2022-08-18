@@ -8,15 +8,14 @@ export default function Notification() {
   return (
     <>
       <Wraper
-        className={`${mode ? 'relative w-96 translate-x-0' : 'translate-x-full'} duration-200 absolute w-full xl:w-1/2`}
+        className={`${mode ? 'relative w-96 translate-x-0' : 'translate-x-full'}  duration-200 absolute w-full xl:w-1/2`}
       >
         <Card
-          className={`${(status !== 'success') && 'text-red-600'} text-center`}
+          className={`${(status !== 'success') && 'text-red-600'} text-center p-3`}
         >
           <p>{message}</p>
         </Card>
       </Wraper>
-
     </>
   );
 }

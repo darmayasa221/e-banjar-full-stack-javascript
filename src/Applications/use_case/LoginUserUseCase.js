@@ -36,7 +36,7 @@ class LoginUserUseCase {
     }
     return {
       status: result.status,
-      message: result.message || 'Login Berhasil',
+      message: result.message,
       data: {
         nama: result.nama || '',
       },

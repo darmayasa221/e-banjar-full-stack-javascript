@@ -4,7 +4,7 @@ export default function Input(props) {
   return (
     <>
       <label
-        className={`${props.labelClassName || 'hidden'} font-black text-gray-600`}
+        className={`${props.labelClassName || 'hidden'}  text-sm font-black text-gray-600`}
         htmlFor={props.id}
       >
         {props.textLabel}
