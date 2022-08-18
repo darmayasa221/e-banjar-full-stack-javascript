@@ -12,7 +12,7 @@ export default function Home() {
         textLinkOne="Daftar"
         textLinkTwo="Masuk"
       />
-      <Wraper className="py-5 px-8">
+      <Wraper className="h-full py-5 px-8">
         <Input placeholder="cari kegiatan disini" type="text" className="w-full" />
         <div>
           List Here

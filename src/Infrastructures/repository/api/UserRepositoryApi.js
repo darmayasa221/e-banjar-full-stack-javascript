@@ -17,6 +17,31 @@ class UserRepositoryApi extends UserRepository {
     const response = await responseJson.json();
     return response;
   }
+
+  async loginUser(payload) {
+    const responseJson = await fetch(`${this._apiEndpoint.API_EBANJAR}/authentications`, {
+      headers: {
+        'Content-type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    const response = await responseJson.json();
+    return response;
+  }
+
+  async getUserByKtp(authentication) {
+    console.log(authentication);
+    const responseJson = await fetch(`${this._apiEndpoint.API_EBANJAR}/users/${authentication.name}`, {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${authentication.accessToken}`,
+      },
+      method: 'GET',
+    });
+    const response = await responseJson.json();
+    return response;
+  }
 }
 
 module.exports = UserRepositoryApi;

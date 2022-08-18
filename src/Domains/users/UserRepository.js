@@ -6,6 +6,10 @@ class UserRepository {
   async loginUser(payload) {
     throw new Error('METHOD_NOT_IMPLEMENTED');
   }
+
+  async getUserByKtp(token) {
+    throw new Error('METHOD_NOT_IMPLEMENTED');
+  }
 }
 
 module.exports = UserRepository;

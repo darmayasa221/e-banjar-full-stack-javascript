@@ -33,7 +33,7 @@ export default function FormLogin() {
             value={loginUserState.password}
           />
         </div>
-        <Button className="mx-auto mt-4 w-1/4" text="Masuk" />
+        <Button className="mx-auto mt-4 w-1/4" text="Masuk" type="submit" />
       </form>
     </>
   );

@@ -1,16 +1,24 @@
 /* eslint-disable no-unsafe-finally */
 const ClientError = require('../../Commons/exceptions/ClientError');
+const NewAuth = require('../../Domains/authentications/entities/NewAuth');
+const LoginUser = require('../../Domains/users/entities/LoginUser');
 
 class LoginUserUseCase {
-  constructor({ userRepository, domainErrorTranslator }) {
+  constructor({ userRepository, authenticationRepository, domainErrorTranslator }) {
     this._userRepository = userRepository;
     this._domainErrorTranslator = domainErrorTranslator;
+    this._authenticationRepository = authenticationRepository;
   }
 
   async execute(payload) {
     let result;
     try {
-      console.log('a');
+      const payloadVerify = this._verifyPayload(payload);
+      const newPayload = new LoginUser(payloadVerify);
+      const authentications = await this._userRepository.loginUser(newPayload);
+      const newAuth = new NewAuth(authentications.data);
+      this._authenticationRepository.addToken(newAuth);
+      result = authentications;
     } catch (error) {
       result = error;
     } finally {
@@ -26,7 +34,13 @@ class LoginUserUseCase {
         message: translatedError.message,
       };
     }
-    return result;
+    return {
+      status: result.status,
+      message: result.message || 'Login Berhasil',
+      data: {
+        nama: result.nama || '',
+      },
+    };
   }
 
   _verifyPayload({ username, password }) {

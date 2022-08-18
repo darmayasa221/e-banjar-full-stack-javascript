@@ -5,10 +5,17 @@ const UserRepository = require('../Domains/users/UserRepository');
 const UserRepositoryApi = require('./repository/api/UserRepositoryApi');
 const ApiEndpoint = require('./api/ApiEndpoint');
 const DomainErrorTranslator = require('../Commons/exceptions/DomainErrorTranslator');
+const AuthenticationRepository = require('../Domains/authentications/AuthenticationRepository');
+const AuthenticationRepositoryWebStorage = require('./repository/webStorage/AuthenticationRepositoryWebStorage');
+const GetUserByKtpUseCase = require('../Applications/use_case/GetUserByKtpUseCase');
 
 const container = Container.createContainer();
 
 container.register([
+  {
+    key: AuthenticationRepository.name,
+    Class: AuthenticationRepositoryWebStorage,
+  },
   {
     key: UserRepository.name,
     Class: UserRepositoryApi,
@@ -49,6 +56,35 @@ container.register([
         {
           name: 'userRepository',
           internal: UserRepository.name,
+        },
+        {
+          name: 'domainErrorTranslator',
+          concrete: DomainErrorTranslator,
+        },
+        {
+          name: 'authenticationRepository',
+          internal: AuthenticationRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: GetUserByKtpUseCase.name,
+    Class: GetUserByKtpUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'userRepository',
+          internal: UserRepository.name,
+        },
+        {
+          name: 'domainErrorTranslator',
+          concrete: DomainErrorTranslator,
+        },
+        {
+          name: 'authenticationRepository',
+          internal: AuthenticationRepository.name,
         },
       ],
     },

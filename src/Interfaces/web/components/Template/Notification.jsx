@@ -1,16 +1,22 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Card from '../UI/Card';
+import Wraper from '../UI/Wraper';
 
 export default function Notification() {
-  const { status, message, mode } = useSelector(({ notification }) => notification);
+  const { message, status, mode } = useSelector(({ notification }) => notification);
   return (
     <>
-      <Card
-        className={`${(status !== 'success') && 'text-red-600'} ${!mode && 'translate-x-full'} text-center relative z-40 text-black p-3 translate-x-0 duration-200 w-full xl:w-1/2`}
+      <Wraper
+        className={`${mode ? 'relative w-96 translate-x-0' : 'translate-x-full'} duration-200 absolute w-full xl:w-1/2`}
       >
-        <p>{message}</p>
-      </Card>
+        <Card
+          className={`${(status !== 'success') && 'text-red-600'} text-center`}
+        >
+          <p>{message}</p>
+        </Card>
+      </Wraper>
+
     </>
   );
 }
