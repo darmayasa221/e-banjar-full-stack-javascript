@@ -1,8 +1,8 @@
 /* eslint-disable no-loss-of-precision */
 /* eslint-disable camelcase */
-const UserRegister = require('../UserRegister');
+const RegisterUser = require('../RegisterUser');
 
-describe('UserRegister', () => {
+describe('RegisterUser', () => {
   it('should throw error when payload did not contain needed', () => {
     // Arrange
     const payload = {
@@ -11,7 +11,7 @@ describe('UserRegister', () => {
       current_address: 'alamat sekarang',
     };
     // Action and Assert
-    expect(() => new UserRegister(payload)).toThrowError('USER_REGISTER.NOT_CONTAIN_NEEDED_PROPERT');
+    expect(() => new RegisterUser(payload)).toThrowError('USER_REGISTER.NOT_CONTAIN_NEEDED_PROPERT');
   });
   it('should throw error when payload did not meet data type specification', () => {
     // Arrange
@@ -22,7 +22,7 @@ describe('UserRegister', () => {
       old_address: 'alamat sebelumnya',
     };
     // Action and Assert
-    expect(() => new UserRegister(payload)).toThrowError('USER_REGISTER.NOT_MEET_DATA_TYPE_SPECIFICATION');
+    expect(() => new RegisterUser(payload)).toThrowError('USER_REGISTER.NOT_MEET_DATA_TYPE_SPECIFICATION');
   });
   it('should throw error when ktp of length > 16', () => {
     // Arrange
@@ -33,7 +33,7 @@ describe('UserRegister', () => {
       old_address: 'alamat sebelumnya',
     };
     // Action and Assert
-    expect(() => new UserRegister(payload)).toThrowError('USER_REGISTER.KTP_OF_LENGTH_GREETER_THEN_16');
+    expect(() => new RegisterUser(payload)).toThrowError('USER_REGISTER.KTP_OF_LENGTH_GREETER_THEN_16');
   });
   it('should crate user register corretly', () => {
     // Arrange
@@ -44,7 +44,7 @@ describe('UserRegister', () => {
       old_address: 'alamat sebelumnya',
     };
     // Action
-    const user = new UserRegister(payload);
+    const user = new RegisterUser(payload);
     const {
       name,
       ktp,

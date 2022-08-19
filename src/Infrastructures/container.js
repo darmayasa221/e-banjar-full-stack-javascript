@@ -11,6 +11,7 @@ const UserRepository = require('../Domains/users/UserRepository');
 const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres');
 const PasswordHash = require('../Applications/security/PasswordHash');
 // use case
+const AuthorizationUseCase = require('../Applications/use_cases/AuthorizationUseCase');
 const RegisterUserUseCase = require('../Applications/use_cases/RegisterUserUseCase');
 const BcryptPasswordHash = require('./security/BcryptPasswordHash');
 const AuthenticationRepository = require('../Domains/authentications/AuthenticationRepository');
@@ -18,6 +19,7 @@ const AuthenticationRepositoryPostgres = require('./repository/AuthenticationRep
 const AuthenticationTokenManager = require('../Applications/security/AuthenticationTokenManager');
 const JwtTokenManager = require('./security/JwtTokenManager');
 const LoginUserUseCase = require('../Applications/use_cases/LoginUserUseCase');
+const LogoutUserUseCase = require('../Applications/use_cases/LogoutUserUseCase');
 // container
 const container = createContainer();
 
@@ -111,6 +113,32 @@ container.register([
         {
           name: 'passwordHash',
           internal: PasswordHash.name,
+        },
+      ],
+    },
+  },
+  {
+    key: AuthorizationUseCase.name,
+    Class: AuthorizationUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'userRepository',
+          internal: UserRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: LogoutUserUseCase.name,
+    Class: LogoutUserUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'authenticationRepository',
+          internal: AuthenticationRepository.name,
         },
       ],
     },

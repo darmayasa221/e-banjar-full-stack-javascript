@@ -1,7 +1,5 @@
-/* eslint-disable camelcase */
-/* eslint-disable no-underscore-dangle */
 const NewAuth = require('../../Domains/authentications/entities/NewAuth');
-const UserLogin = require('../../Domains/users/entities/UserLogin');
+const LoginUser = require('../../Domains/users/entities/LoginUser');
 
 class LoginUserUseCase {
   constructor({
@@ -16,17 +14,22 @@ class LoginUserUseCase {
     this._passwordHash = passwordHash;
   }
 
-  async execute(payload) {
-    const { username, password } = new UserLogin(payload);
-    const encryptedPassword = await this._userRepository.getPasswordByKtp(username);
-    const name = await this._userRepository.getNameByKtp(username);
-    const id_access = await this._userRepository.getAccessByKtp(username);
+  async execute(useCasePayload) {
+    const { username, password } = new LoginUser(useCasePayload);
+    const { id, name, ktp } = await this._userRepository.verifyUsername(username);
+    const encryptedPassword = await this._userRepository.getPasswordById(id);
+    const { access } = await this._userRepository.getAccessById(id);
     await this._passwordHash.comparePassword(password, encryptedPassword);
     const accessToken = await this._authenticationTokenManager
-      .createAccessToken({ ktp: username, name, id_access });
+      .createAccessToken({
+        id, ktp, name, access,
+      });
     const refreshToken = await this._authenticationTokenManager
-      .createRefreshToken({ ktp: username, name, id_access });
+      .createRefreshToken({
+        id, ktp, name, access,
+      });
     const newAuthentication = new NewAuth({
+      name,
       accessToken,
       refreshToken,
     });
