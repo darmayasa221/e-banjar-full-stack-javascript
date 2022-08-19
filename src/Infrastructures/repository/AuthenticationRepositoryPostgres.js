@@ -24,7 +24,7 @@ class AuthenticationRepositoryPostgres extends AuthenticationRepository {
     };
     const { rowCount } = await this._pool.query(query);
     if (!rowCount) {
-      throw new InvariantError('refresh token not found in database');
+      throw new InvariantError('refresh token tidak ditemukan di database');
     }
   }
 

@@ -2,6 +2,7 @@
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const AuthorizationError = require('../../../Commons/exceptions/AuthorizationError');
 const InvariantError = require('../../../Commons/exceptions/InvariantError');
+const NotFoundError = require('../../../Commons/exceptions/NotFoundError');
 const RegisterUser = require('../../../Domains/users/entities/RegisterUser');
 const pool = require('../../database/postgres/pool');
 const UserRepositoryPostgres = require('../UserRepositoryPostgres');
@@ -102,7 +103,7 @@ describe('UserRepositoryPostgres', () => {
       const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
       // Action and Assert
       await expect(() => userRepositoryPostgres.verifyUser({ id: 'id-123' }))
-        .rejects.toThrowError(InvariantError);
+        .rejects.toThrowError(NotFoundError);
     });
     it('should throw error when ktp is not match', async () => {
       // Arrange

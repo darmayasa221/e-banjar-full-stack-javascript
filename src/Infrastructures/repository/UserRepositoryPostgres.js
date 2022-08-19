@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 const InvariantError = require('../../Commons/exceptions/InvariantError');
+const NotFoundError = require('../../Commons/exceptions/NotFoundError');
 const UserRepository = require('../../Domains/users/UserRepository');
 const AuthorizationError = require('../../Commons/exceptions/AuthorizationError');
 
@@ -96,7 +97,7 @@ class UserRepositoryPostgres extends UserRepository {
     };
     const { rowCount, rows } = await this._pool.query(query);
     if (!rowCount) {
-      throw new InvariantError('id tidak ditemukan');
+      throw new NotFoundError('id tidak ditemukan');
     }
     if (rows[0].ktp !== ktp) {
       throw new AuthorizationError('tidak dapat melakukan access ke resource');
