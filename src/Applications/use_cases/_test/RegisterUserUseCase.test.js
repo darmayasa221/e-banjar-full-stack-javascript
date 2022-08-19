@@ -1,4 +1,4 @@
-const UserRegister = require('../../../Domains/users/entities/UserRegister');
+const RegisterUser = require('../../../Domains/users/entities/RegisterUser');
 const UserRepository = require('../../../Domains/users/UserRepository');
 const PasswordHash = require('../../security/PasswordHash');
 const RegisterUserUseCase = require('../RegisterUserUseCase');
@@ -6,7 +6,7 @@ const RegisterUserUseCase = require('../RegisterUserUseCase');
 describe('RegisterUserUseCase', () => {
   it('should orchestrating the add user action correctly', async () => {
     // Arrange
-    const useCasePayload = new UserRegister({
+    const useCasePayload = new RegisterUser({
       name: 'darma',
       ktp: 1234567890123456,
       current_address: 'alamat sekarang',
@@ -32,7 +32,7 @@ describe('RegisterUserUseCase', () => {
     expect(mockUserRepository.verifyAvailableKtp).toBeCalledWith(useCasePayload.ktp);
     expect(mockPasswordHash.hash).toBeCalledWith(useCasePayload.ktp);
     expect(mockUserRepository.registerUser).toBeCalledWith({
-      ...new UserRegister({
+      ...new RegisterUser({
         name: 'darma',
         ktp: 1234567890123456,
         current_address: 'alamat sekarang',

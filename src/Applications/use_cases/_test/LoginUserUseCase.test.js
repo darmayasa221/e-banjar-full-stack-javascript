@@ -4,15 +4,17 @@ const UserRepository = require('../../../Domains/users/UserRepository');
 const AuthenticationTokenManager = require('../../security/AuthenticationTokenManager');
 const PasswordHash = require('../../security/PasswordHash');
 const LoginUserUseCase = require('../LoginUserUseCase');
+const LoginUser = require('../../../Domains/users/entities/LoginUser');
 
 describe('LoginUserUseCase', () => {
   it('should orchestrating the Login action correctly', async () => {
     // Arrange
-    const useCasePayload = {
+    const useCasePayload = new LoginUser({
       username: 1234567890123456,
       password: 1234567890123456,
-    };
+    });
     const expectedAuthentication = new NewAuth({
+      name: 'jhon',
       accessToken: 'access_token',
       refreshToken: 'refresh_token',
     });
@@ -21,15 +23,21 @@ describe('LoginUserUseCase', () => {
     const mockAuthenticationRepository = new AuthenticationRepository();
     const mockAuthenticationTokenManager = new AuthenticationTokenManager();
     const mockPasswordHash = new PasswordHash();
-
+    const idMock = 'id-mock123';
+    const ktpMock = '1234567890123456';
+    const accessMock = 'user';
     // mocking
 
-    mockUserRepository.getPasswordByKtp = jest.fn()
+    mockUserRepository.verifyUsername = jest.fn()
+      .mockImplementation(() => Promise.resolve({
+        id: idMock,
+        name: expectedAuthentication.name,
+        ktp: ktpMock,
+      }));
+    mockUserRepository.getPasswordById = jest.fn()
       .mockImplementation(() => Promise.resolve('encrypted_password'));
-    mockUserRepository.getNameByKtp = jest.fn()
-      .mockImplementation(() => Promise.resolve('jhon'));
-    mockUserRepository.getAccessByKtp = jest.fn()
-      .mockImplementation(() => Promise.resolve('user'));
+    mockUserRepository.getAccessById = jest.fn()
+      .mockImplementation(() => Promise.resolve({ access: accessMock }));
     mockPasswordHash.comparePassword = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockAuthenticationTokenManager.createAccessToken = jest.fn()
@@ -51,16 +59,22 @@ describe('LoginUserUseCase', () => {
     const actualAuthentication = await loginUserUseCase.execute(useCasePayload);
     // Assert
     expect(actualAuthentication).toEqual(expectedAuthentication);
-    expect(mockUserRepository.getPasswordByKtp)
-      .toBeCalledWith(1234567890123456);
-    expect(mockUserRepository.getNameByKtp)
-      .toBeCalledWith(1234567890123456);
+    expect(mockUserRepository.verifyUsername)
+      .toBeCalledWith(useCasePayload.username);
+    expect(mockUserRepository.getPasswordById)
+      .toBeCalledWith(idMock);
+    expect(mockUserRepository.getAccessById)
+      .toBeCalledWith(idMock);
     expect(mockPasswordHash.comparePassword)
       .toBeCalledWith(1234567890123456, 'encrypted_password');
     expect(mockAuthenticationTokenManager.createAccessToken)
-      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon', id_access: 'user' });
+      .toBeCalledWith({
+        id: idMock, ktp: ktpMock, name: 'jhon', access: accessMock,
+      });
     expect(mockAuthenticationTokenManager.createRefreshToken)
-      .toBeCalledWith({ ktp: 1234567890123456, name: 'jhon', id_access: 'user' });
+      .toBeCalledWith({
+        id: idMock, ktp: ktpMock, name: 'jhon', access: accessMock,
+      });
     expect(mockAuthenticationRepository.addToken)
       .toBeCalledWith(expectedAuthentication.refreshToken);
   });
