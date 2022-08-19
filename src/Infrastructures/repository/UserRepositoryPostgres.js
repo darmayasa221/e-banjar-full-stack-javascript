@@ -1,7 +1,7 @@
-/* eslint-disable max-len */
 /* eslint-disable camelcase */
 const InvariantError = require('../../Commons/exceptions/InvariantError');
 const UserRepository = require('../../Domains/users/UserRepository');
+const AuthorizationError = require('../../Commons/exceptions/AuthorizationError');
 
 class UserRepositoryPostgres extends UserRepository {
   constructor(pool, idGenerator) {
@@ -25,10 +25,26 @@ class UserRepositoryPostgres extends UserRepository {
     const query = {
       text: `INSERT INTO users
       VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
-      values: [id, name, password, ktp, current_address, old_address, created_at, updated_at, id_access],
+      values: [
+        id, name, password, ktp, current_address, old_address, created_at, updated_at, id_access,
+      ],
     };
 
     await this._pool.query(query);
+  }
+
+  async verifyUsername(username) {
+    const query = {
+      text: `SELECT id, name, ktp
+      FROM users
+      WHERE ktp = $1`,
+      values: [username],
+    };
+    const { rows, rowCount } = await this._pool.query(query);
+    if (!rowCount) {
+      throw new InvariantError('login gagal, pengguna tidak ditemukan');
+    }
+    return rows[0];
   }
 
   async verifyAvailableKtp(ktp) {
@@ -44,71 +60,60 @@ class UserRepositoryPostgres extends UserRepository {
     }
   }
 
-  async getNameByKtp(ktp) {
-    const query = {
-      text: `SELECT name
-      FROM users
-      WHERE ktp = $1`,
-      values: [ktp],
-    };
-    const { rowCount, rows } = await this._pool.query(query);
-    if (!rowCount) {
-      throw new InvariantError('pengguna tidak ditemukan');
-    }
-    return rows[0].name;
-  }
-
-  async getPasswordByKtp(ktp) {
+  async getPasswordById(id) {
     const query = {
       text: `SELECT password
       FROM users
-      WHERE ktp = $1`,
-      values: [ktp],
+      WHERE id = $1`,
+      values: [id],
     };
     const { rowCount, rows } = await this._pool.query(query);
     if (!rowCount) {
-      throw new InvariantError('pengguna tidak ditemukan');
+      throw new InvariantError('login gagal, pengguna tidak ditemukan');
     }
     return rows[0].password;
   }
 
-  async getAccessByKtp(ktp) {
+  async getAccessById(id) {
     const query = {
       text: `SELECT access.access
       FROM users
       RIGHT JOIN access ON users.id_access = access.id
-      WHERE users.ktp = $1`,
-      values: [ktp],
+      WHERE users.id = $1`,
+      values: [id],
     };
     const { rows } = await this._pool.query(query);
-    return rows[0].access;
-  }
-
-  async getUserByKtp(ktp, id_access) {
-    const query = {
-      text: `SELECT * FROM users
-      WHERE ktp = $1`,
-      values: [ktp],
-    };
-    const { rows } = await this._pool.query(query);
-    if (id_access === 1) {
-      return rows[0];
-    }
-    if (id_access === 2) {
-      return rows[0];
-    }
     return rows[0];
   }
 
-  async verifyAccessUser(id_access) {
+  async verifyUser(payload) {
+    const { id, ktp } = payload;
+    const query = {
+      text: `SELECT ktp, name
+      FROM users
+      WHERE id = $1`,
+      values: [id],
+    };
+    const { rowCount, rows } = await this._pool.query(query);
+    if (!rowCount) {
+      throw new InvariantError('id tidak ditemukan');
+    }
+    if (rows[0].ktp !== ktp) {
+      throw new AuthorizationError('tidak dapat melakukan access ke resource');
+    }
+    return rows[0].name;
+  }
+
+  async verifyUserAccess(access) {
     const query = {
       text: `SELECT id
       FROM access
       WHERE access = $1`,
-      values: [id_access],
+      values: [access],
     };
     const { rows } = await this._pool.query(query);
-    return rows[0];
+    const id = Number(rows[0].id);
+    return id;
   }
 }
 

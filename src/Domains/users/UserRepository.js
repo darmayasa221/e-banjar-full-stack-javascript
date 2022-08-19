@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 class UserRepository {
   async registerUser(payload) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
@@ -8,19 +7,23 @@ class UserRepository {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getNameByKtp(ktp) {
+  async verifyUsername(username) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getPasswordByKtp(ktp) {
+  async getPasswordById(id) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getAccessByKtp(ktp) {
+  async getAccessById(id) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getUserByKtp(ktp, id_access) {
+  async verifyUser(payload) {
+    throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
+
+  async verifyUserAccess(access) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }

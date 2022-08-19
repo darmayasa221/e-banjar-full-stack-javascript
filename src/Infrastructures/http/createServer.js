@@ -4,13 +4,16 @@ const ClientError = require('../../Commons/exceptions/ClientError');
 const DomainErrorTranslator = require('../../Commons/exceptions/DomainErrorTranslator');
 const authentications = require('../../Interfaces/http/api/authentications');
 const users = require('../../Interfaces/http/api/users');
+const authorizations = require('../../Interfaces/http/api/authorizations');
 
 const createServer = async (container) => {
   const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST,
     routes: {
-      cors: true,
+      cors: {
+        origin: ['*'],
+      },
     },
   });
 
@@ -20,18 +23,19 @@ const createServer = async (container) => {
     },
   ]);
 
-  server.auth.strategy('users_jwt', 'jwt', {
+  server.auth.strategy('authorizations_jwt', 'jwt', {
     keys: process.env.ACCESS_TOKEN_KEY,
     verify: {
       aud: false,
       iss: false,
       sub: false,
-      maxAgeSec: process.env.ACCESS_TOKEN_AGE,
     },
     validate: (artifacts) => ({
       isValid: true,
       credentials: {
-        id: artifacts.decoded.payload.ktp,
+        ktp: artifacts.decoded.payload.ktp,
+        id: artifacts.decoded.payload.id,
+        access: artifacts.decoded.payload.access,
       },
     }),
   });
@@ -45,6 +49,12 @@ const createServer = async (container) => {
     },
     {
       plugin: authentications,
+      options: {
+        container,
+      },
+    },
+    {
+      plugin: authorizations,
       options: {
         container,
       },

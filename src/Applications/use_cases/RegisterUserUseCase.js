@@ -6,8 +6,8 @@ class RegisterUserUseCase {
     this._passwordHash = passwordHash;
   }
 
-  async execute(payload) {
-    const user = new RegisterUser(payload);
+  async execute(useCasePayload) {
+    const user = new RegisterUser(useCasePayload);
     await this._userRepository.verifyAvailableKtp(user.ktp);
     user.password = await this._passwordHash.hash(user.ktp);
     await this._userRepository.registerUser(user);
