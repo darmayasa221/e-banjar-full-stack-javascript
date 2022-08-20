@@ -6,7 +6,7 @@ module.exports = {
     ['@babel/preset-react', { runtime: 'automatic' }]],
   // eslint-disable-next-line global-require
   plugins: [
-    [process.env.NODE_ENV !== 'production' && require('react-refresh/babel')].filter(Boolean),
+    [process.env.NODE_ENV === 'development' && require.resolve('react-refresh/babel'), {}].filter(Boolean),
     ['module-resolver', {
       root: ['./src'],
       alias: {

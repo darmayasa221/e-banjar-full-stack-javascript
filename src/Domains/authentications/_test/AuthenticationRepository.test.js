@@ -6,7 +6,7 @@ describe('AuthenticationRepository', () => {
     const authenticationRepository = new AuthenticationRepository();
     // Acction and Assert
     expect(authenticationRepository.addToken('')).toThrowError('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
-    expect(authenticationRepository.checkAvailabilityToken('')).toThrowError('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
-    expect(authenticationRepository.deleteToken('')).toThrowError('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+    expect(authenticationRepository.checkAvailabilityToken()).toThrowError('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+    expect(authenticationRepository.deleteToken()).toThrowError('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   });
 });

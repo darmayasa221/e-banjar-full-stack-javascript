@@ -3,11 +3,11 @@ class AuthenticationRepository {
     throw new Error('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  checkAvailabilityToken(token) {
+  checkAvailabilityToken() {
     throw new Error('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  deleteToken(token) {
+  deleteToken() {
     throw new Error('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }
