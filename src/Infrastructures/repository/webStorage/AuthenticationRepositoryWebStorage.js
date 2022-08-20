@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-constructor */
-const AuthenticationRepository = require('../../../Domains/authentications/AuthenticationRepository');
+const AuthorizationError = require('@Commons/exceptions/AuthorizationError');
+const AuthenticationRepository = require('@Domains/authentications/AuthenticationRepository');
 
 class AuthenticationRepositoryWebStorage extends AuthenticationRepository {
   constructor() {
@@ -18,7 +19,7 @@ class AuthenticationRepositoryWebStorage extends AuthenticationRepository {
   checkAvailabilityToken() {
     const authentication = JSON.parse(localStorage.getItem('authentications' || ''));
     if (!authentication) {
-      throw new Error('silahkan login ulang');
+      throw new AuthorizationError('sesi sudah habis silahkan login kembali');
     }
     return authentication;
   }

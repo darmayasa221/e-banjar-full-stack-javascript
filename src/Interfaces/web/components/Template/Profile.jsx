@@ -1,7 +1,7 @@
 import React from 'react';
+import PorfileDefault from '@Infrastructures/web/public/assets/images/profile_default.png';
 import Wraper from '../UI/Wraper';
 import Input from '../UI/Input';
-import PorfileDefault from '../../../../Infrastructures/web/public/assets/images/profile_default.png';
 
 export default function Profile() {
   return (

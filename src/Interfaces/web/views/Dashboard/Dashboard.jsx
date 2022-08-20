@@ -1,37 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import DashboardUser from '../../components/Template/DashboardUser';
-import HandlerAuthorization from '../../controller/handlers/HandlerAuthorization';
+import { Outlet, useNavigate } from 'react-router-dom';
+import Authorization from 'Interfaces/web/controller/Authorization';
+import Wraper from 'Interfaces/web/components/UI/Wraper';
+import MenuList from 'Interfaces/web/components/Template/MenuList';
+import { useSelector } from 'react-redux';
 import Header from '../../components/Template/Header';
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const [authorizationed, setAuthorizationed] = useState(false);
-  const { authorization } = HandlerAuthorization();
-  useEffect(() => {
-    if (!authorizationed) {
-      (async () => {
-        const data = await authorization();
-        if (data.status === 'success') {
-          setAuthorizationed(true);
-        } else {
-          navigate('/', { replace: true });
-        }
-      })();
-    }
-    return (() => {
-      setAuthorizationed(false);
-    });
-  }, []);
+  const { name } = useSelector(({ authorization }) => authorization);
   return (
-    <>
+    <Authorization>
       <Header
-        authorizationed={authorizationed}
+        dashboard
         className="z-50 relative"
       />
-      {
-        authorizationed && <DashboardUser />
-      }
-    </>
+      <Wraper
+        className="h-full w-full xl:grid xl:grid-cols-8 items-center absolute top-0 pt-16 overflow-scroll"
+      >
+        <div className="hidden xl:block h-full col-span-1  border-r-4 border-r-white shadow-md">
+          <MenuList />
+        </div>
+        <div className="h-full flex flex-col xl:items-center xl:col-start-2 xl:col-end-9">
+          <h1>{name}</h1>
+          <Outlet />
+        </div>
+      </Wraper>
+    </Authorization>
   );
 }

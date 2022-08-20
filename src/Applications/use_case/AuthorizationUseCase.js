@@ -1,7 +1,8 @@
 /* eslint-disable no-unsafe-finally */
 const ClientError = require('@Commons/exceptions/ClientError');
+const Authorizationed = require('@Domains/authorizations/entities/Authorizationed');
 
-class LogoutUserUseCase {
+class AuthorizationUseCase {
   constructor({ userRepository, authenticationRepository, domainErrorTranslator }) {
     this._userRepository = userRepository;
     this._domainErrorTranslator = domainErrorTranslator;
@@ -11,9 +12,10 @@ class LogoutUserUseCase {
 
   async execute() {
     try {
-      const authentications = this._authenticationRepository.checkAvailabilityToken();
-      this._authenticationRepository.deleteToken();
-      this._data = await this._userRepository.deleteAuthentication({ refreshToken: authentications.refreshToken });
+      const authentication = this._authenticationRepository.checkAvailabilityToken();
+      const { data: { name, idAccess: id }, status } = await this._userRepository.getUserAccess(authentication);
+      const autorizationed = new Authorizationed({ name, id });
+      this._data = { status, data: { ...autorizationed } };
     } catch (error) {
       this._data = error;
     } finally {
@@ -31,9 +33,10 @@ class LogoutUserUseCase {
     }
     return {
       status: data.status,
-      message: data.message,
+      message: data.message || `selamat datang ${data.data.name}`,
+      data: data.data || {},
     };
   }
 }
 
-module.exports = LogoutUserUseCase;
+module.exports = AuthorizationUseCase;

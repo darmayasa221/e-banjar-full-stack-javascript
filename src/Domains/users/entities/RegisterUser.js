@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
-class RegisterUser {
+class UserRegister {
   constructor(payload) {
     this._verifyPayload(payload);
     const {
@@ -11,7 +11,7 @@ class RegisterUser {
       old_address,
     } = payload;
     this.name = name;
-    this.ktp = Number(ktp);
+    this.ktp = ktp;
     this.current_address = current_address;
     this.old_address = old_address;
   }
@@ -27,6 +27,7 @@ class RegisterUser {
     }
     if (
       typeof name !== 'string'
+      || typeof ktp !== 'number'
       || typeof current_address !== 'string'
       || typeof old_address !== 'string'
     ) {
@@ -38,4 +39,4 @@ class RegisterUser {
   }
 }
 
-module.exports = RegisterUser;
+module.exports = UserRegister;

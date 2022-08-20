@@ -1,8 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Link from '../UI/Link';
 
 export default function MenuList() {
-  const access = 'user';
+  const { idAccess } = useSelector(({ authorization }) => authorization);
   return (
     <>
       <ul>
@@ -14,7 +15,7 @@ export default function MenuList() {
           />
         </li>
         {
-          access === 'admin' && (
+          (idAccess === 2 || idAccess === 3) && (
             <>
               <li className="py-2 hover:bg-black hover:text-white">
                 <Link

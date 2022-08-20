@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
-class LoginUser {
+class UserLogin {
   constructor(payload) {
     this._verifyPayload(payload);
     const { username, password } = payload;
@@ -18,4 +18,4 @@ class LoginUser {
   }
 }
 
-module.exports = LoginUser;
+module.exports = UserLogin;

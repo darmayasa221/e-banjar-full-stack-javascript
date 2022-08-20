@@ -12,6 +12,7 @@ describe('NewAuth Entities', () => {
   it('should throw error when payload did not meet data type specification', () => {
     // Arrange
     const payload = {
+      name: 'jhon',
       accessToken: 'accessToken',
       refreshToken: 134,
     };
@@ -21,13 +22,14 @@ describe('NewAuth Entities', () => {
   it('should create NewAuth correctly', () => {
     // Arrange
     const payload = {
+      name: 'jhon',
       accessToken: 'accessToken',
       refreshToken: 'refreshToken',
     };
     // action
     const newAuth = new NewAuth(payload);
     // Asert
-    expect(newAuth).toBeInstanceOf(NewAuth);
+    expect(newAuth.name).toEqual(payload.name);
     expect(newAuth.accessToken).toEqual(payload.accessToken);
     expect(newAuth.refreshToken).toEqual(payload.refreshToken);
   });

@@ -1,4 +1,4 @@
-const UserRepository = require('../../../Domains/users/UserRepository');
+const UserRepository = require('@Domains/users/UserRepository');
 
 class UserRepositoryApi extends UserRepository {
   constructor(apiEndpoint) {
@@ -18,7 +18,7 @@ class UserRepositoryApi extends UserRepository {
     return response;
   }
 
-  async loginUser(payload) {
+  async postAuthentication(payload) {
     const responseJson = await fetch(`${this._apiEndpoint.API_EBANJAR}/authentications`, {
       headers: {
         'Content-type': 'application/json',
@@ -30,7 +30,7 @@ class UserRepositoryApi extends UserRepository {
     return response;
   }
 
-  async logoutUser(payload) {
+  async deleteAuthentication(payload) {
     const responseJson = await fetch(`${this._apiEndpoint.API_EBANJAR}/authentications`, {
       headers: {
         'Content-type': 'application/json',
@@ -42,8 +42,8 @@ class UserRepositoryApi extends UserRepository {
     return response;
   }
 
-  async getUserByKtp(authentication) {
-    const responseJson = await fetch(`${this._apiEndpoint.API_EBANJAR}/users/${authentication.name}`, {
+  async getUserAccess(authentication) {
+    const responseJson = await fetch(`${this._apiEndpoint.API_EBANJAR}/authorizations`, {
       headers: {
         'Content-type': 'application/json',
         Authorization: `Bearer ${authentication.accessToken}`,

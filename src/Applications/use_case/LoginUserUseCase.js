@@ -1,33 +1,33 @@
 /* eslint-disable no-unsafe-finally */
-const ClientError = require('../../Commons/exceptions/ClientError');
-const NewAuth = require('../../Domains/authentications/entities/NewAuth');
-const LoginUser = require('../../Domains/users/entities/LoginUser');
+const ClientError = require('@Commons/exceptions/ClientError');
+const NewAuth = require('@Domains/authentications/entities/NewAuth');
+const LoginUser = require('@Domains/users/entities/LoginUser');
 
 class LoginUserUseCase {
   constructor({ userRepository, authenticationRepository, domainErrorTranslator }) {
     this._userRepository = userRepository;
     this._domainErrorTranslator = domainErrorTranslator;
     this._authenticationRepository = authenticationRepository;
+    this._data = {};
   }
 
-  async execute(payload) {
-    let result;
+  async execute(useCasePayload) {
     try {
-      const payloadVerify = this._verifyPayload(payload);
-      const newPayload = new LoginUser(payloadVerify);
-      const authentications = await this._userRepository.loginUser(newPayload);
-      const newAuth = new NewAuth(authentications.data);
+      const newPayload = this._verifyPayload(useCasePayload);
+      const loginUser = new LoginUser(newPayload);
+      const response = await this._userRepository.postAuthentication(loginUser);
+      const newAuth = new NewAuth(response.data);
       this._authenticationRepository.addToken(newAuth);
-      result = authentications;
+      this._data = response;
     } catch (error) {
-      result = error;
+      this._data = error;
     } finally {
-      return this._verifyResult(result);
+      return this._verifyResult(this._data);
     }
   }
 
-  _verifyResult(result) {
-    const translatedError = this._domainErrorTranslator.translate(result);
+  _verifyResult(data) {
+    const translatedError = this._domainErrorTranslator.translate(data);
     if (translatedError instanceof ClientError) {
       return {
         status: translatedError.name,
@@ -35,20 +35,20 @@ class LoginUserUseCase {
       };
     }
     return {
-      status: result.status,
-      message: result.message,
+      status: data.status,
+      message: data.message,
       data: {
-        nama: result.nama || '',
+        nama: data.nama || '',
       },
     };
   }
 
   _verifyPayload({ username, password }) {
-    const newState = {
+    const newPayload = {
       username: Number.isNaN(Number(username)) ? 'text' : Number(username),
       password: Number.isNaN(Number(username)) ? 'text' : Number(password),
     };
-    return newState;
+    return newPayload;
   }
 }
 

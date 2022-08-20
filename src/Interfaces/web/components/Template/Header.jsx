@@ -13,7 +13,7 @@ export default function Header(props) {
         className={`${props.className} w-screen bg-blue-500 px-5 py-4 sm:px-8 xl:px-20 `}
       >
         <Navbar
-          authorizationed={props.authorizationed}
+          dashboard={props.dashboard}
           mode={mode}
           setMode={setMode}
           linkOne={props.linkOne}
@@ -25,7 +25,7 @@ export default function Header(props) {
       <Wraper className="w-full flex justify-end h-auto overflow-hidden relative z-50">
         <Notification />
         {
-          props.authorizationed && (
+          props.dashboard && (
             <>
               <Wraper
                 className={`${mode ? 'relative w-96 translate-x-0' : 'translate-x-full'} duration-200 absolute xl:hidden`}

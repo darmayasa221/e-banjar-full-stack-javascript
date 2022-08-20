@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Link from './Link';
 import HumbergetMenu from './HumburgerMenu';
 import Button from './Button';
@@ -18,13 +19,13 @@ export default function Navbar(props) {
       <div
         className={
           `
-          ${props.authorizationed && 'justify-around sm:justify-around xl:col-end-7 xl:pl-10 2xl:pl-0'}
+          ${props.dashboard} && 'justify-around sm:justify-around xl:col-end-7 xl:pl-10 2xl:pl-0'}
           items-center w-full flex border-l-2 pl-1 sm:justify-end sm:col-end-4 md:col-end-5 xl:col-end-6 2xl:col-end-8
           `
         }
       >
         {
-          !props.authorizationed && (
+          !props.dashboard && (
           <>
             <Link
               className="rounded-lg bg-slate-900 text-white hover:text-black hover:bg-slate-50"
@@ -39,9 +40,8 @@ export default function Navbar(props) {
           </>
           )
         }
-
         {
-          props.authorizationed && (
+          props.dashboard && (
             <>
               <Button
                 className="rounded-lg bg-slate-900 text-white hover:text-black hover:bg-slate-50 py-1 px-5 text-center font-sans active:bg-none "
