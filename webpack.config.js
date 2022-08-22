@@ -45,7 +45,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/Infrastructures/web/public/index.html',
+      template: './src/Infrastructures/web/index.html',
     }),
     new ReactRefreshPlugin(),
   ],

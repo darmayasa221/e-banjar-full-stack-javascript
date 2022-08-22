@@ -37,14 +37,14 @@ export default function MenuList() {
         <li className="py-2 hover:bg-black hover:text-white">
           <Link
             className="block w-full"
-            to="/"
+            to="/dashboard/kegiatan"
             text="Kegiatan"
           />
         </li>
         <li className="py-2 hover:bg-black hover:text-white">
           <Link
             className="block w-full"
-            to="/"
+            to="/dashboard/masyarakat"
             text="Masyarakat"
           />
         </li>

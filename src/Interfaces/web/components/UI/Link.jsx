@@ -8,7 +8,7 @@ export default function Link(props) {
         className={`${props.className} py-1 px-5 text-center font-sans hover:text-white`}
         to={props.to || '/'}
       >
-        {props.text}
+        {props.text || props.children}
       </NavLink>
     </>
   );

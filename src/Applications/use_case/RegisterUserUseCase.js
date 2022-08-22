@@ -11,8 +11,9 @@ class RegisterUserUseCase {
 
   async execute(useCasePayload) {
     try {
-      const newPayload = new RegisterUser(useCasePayload);
-      this._data = await this._userRepository.registerUser(newPayload);
+      const newUseCasePayload = this._verifyPayload(useCasePayload);
+      const registerUser = new RegisterUser(newUseCasePayload);
+      this._data = await this._userRepository.registerUser(registerUser);
     } catch (error) {
       this._data = error;
     } finally {
@@ -29,6 +30,14 @@ class RegisterUserUseCase {
       };
     }
     return data;
+  }
+
+  _verifyPayload(payload) {
+    const ktp = Number.isNaN(Number(payload.ktp)) ? 'text' : Number(payload.ktp);
+    return {
+      ...payload,
+      ktp,
+    };
   }
 }
 

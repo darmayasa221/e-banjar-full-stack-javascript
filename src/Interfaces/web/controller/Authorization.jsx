@@ -11,7 +11,7 @@ export default function Authorization(props) {
         await dispatchAuthorization();
       }
     })();
-  }, [authed]);
+  }, []);
   return (
     <>
       {props.children}

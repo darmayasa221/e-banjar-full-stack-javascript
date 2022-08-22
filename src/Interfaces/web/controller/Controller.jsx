@@ -4,7 +4,10 @@ import Home from '../views/Home/Home';
 import Login from '../views/Login/Login';
 import Register from '../views/Register/Register';
 import Dashboard from '../views/Dashboard/Dashboard';
-import Profile from '../components/Template/Profile';
+import Profile from '../components/Menu/Profile';
+import Activities from '../components/Menu/Activities';
+import ActivityDetail from '../components/Template/ActivityDetail';
+import Peoples from '../components/Menu/Peoples';
 
 export default function Controller() {
   return (
@@ -14,6 +17,9 @@ export default function Controller() {
       <Route path="login" element={<Login />} />
       <Route path="dashboard" element={<Dashboard />}>
         <Route path="profile" element={<Profile />} />
+        <Route path="kegiatan" element={<Activities />} />
+        <Route path="kegiatan/:title" element={<ActivityDetail />} />
+        <Route path="masyarakat" element={<Peoples />} />
       </Route>
     </Routes>
   );
