@@ -11,6 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundel.[fullhash].js',
     assetModuleFilename: 'img/[hash][ext][query]',
+    clean: true,
   },
 
   module: {

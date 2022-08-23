@@ -1,11 +1,11 @@
 const { useDispatch } = require('react-redux');
+const container = require('Infrastructures/container');
 const registerUser = require('../../../model/registerUser');
-const container = require('../../../../../Infrastructures/container').default;
 const HandlerNotification = require('../HandlerNotification');
 const registerUserInitialState = require('../../../model/registerUser/initialState');
 
 const HandlerRegister = (payload) => {
-  const registerUseCase = container.getInstance('RegisterUserUseCase');
+  const { registerUserUseCase } = container;
   const { dispatchNotification } = HandlerNotification();
   const dispatch = useDispatch();
   const {
@@ -26,7 +26,7 @@ const HandlerRegister = (payload) => {
   };
   const onSubmit = async (event) => {
     event.preventDefault();
-    const result = await registerUseCase.execute(payload);
+    const result = await registerUserUseCase.execute(payload);
     if (result.status === 'success') {
       dispatch(actionRegisterUser(registerUserInitialState));
     } else {

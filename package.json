@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack server",
     "satrt:watch": "webpack --watch",
-    "build": "rm -rf dist && NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack",
     "test": "jest --coverage"
   },
   "devDependencies": {
@@ -55,7 +55,6 @@
   "homepage": "https://github.com/darmayasa221/e-banjar-full-stack-javascript#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
-    "instances-container": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
