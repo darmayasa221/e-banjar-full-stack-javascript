@@ -7,6 +7,7 @@ module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: './src/App.jsx',
   output: {
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundel.[fullhash].js',
     assetModuleFilename: 'img/[hash][ext][query]',
@@ -42,14 +43,14 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
-
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/Interfaces/UI/index.html',
+      template: './src/Infrastructures/web/index.html',
     }),
     new ReactRefreshPlugin(),
   ],
   devServer: {
+    historyApiFallback: true,
     hot: true,
   },
 };

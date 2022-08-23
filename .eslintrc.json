@@ -14,6 +14,16 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {},
-  "ignorePatterns": ["dist"]
+  "rules": {
+    "import/no-unresolved":"off",
+    "react/jsx-no-useless-fragment": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "off",
+    "class-methods-use-this": "off",
+    "max-len": "off",
+    "react/destructuring-assignment": "off",
+    "react/prop-types": "off",
+    "no-param-reassign": "off"
+  },
+  "ignorePatterns": ["/dist"]
 }

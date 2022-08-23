@@ -17,6 +17,7 @@
     "@types/jest": "^28.1.5",
     "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.5",
+    "babel-plugin-module-resolver": "^4.1.0",
     "css-loader": "^6.7.1",
     "cssnano": "^5.1.12",
     "eslint": "^8.19.0",
@@ -54,8 +55,11 @@
   "homepage": "https://github.com/darmayasa221/e-banjar-full-stack-javascript#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
+    "instances-container": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0"
   }
 }
