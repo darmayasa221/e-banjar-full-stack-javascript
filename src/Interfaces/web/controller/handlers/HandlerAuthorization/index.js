@@ -1,4 +1,4 @@
-const container = require('@Infrastructures/container');
+const container = require('@Infrastructures/container').default;
 const { useDispatch } = require('react-redux');
 const { useNavigate } = require('react-router-dom');
 const authorization = require('../../../model/authorization');

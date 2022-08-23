@@ -1,6 +1,6 @@
 const { useDispatch } = require('react-redux');
 const { useNavigate } = require('react-router-dom');
-const container = require('@Infrastructures/container');
+const container = require('@Infrastructures/container').default;
 const loginUser = require('../../../model/loginUser');
 const HandlerNotification = require('../HandlerNotification');
 const loginUserInitialState = require('../../../model/loginUser/initialState');

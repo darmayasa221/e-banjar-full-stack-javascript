@@ -1,6 +1,6 @@
 const { useDispatch } = require('react-redux');
 const registerUser = require('../../../model/registerUser');
-const container = require('../../../../../Infrastructures/container');
+const container = require('../../../../../Infrastructures/container').default;
 const HandlerNotification = require('../HandlerNotification');
 const registerUserInitialState = require('../../../model/registerUser/initialState');
 
