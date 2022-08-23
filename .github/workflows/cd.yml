@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: SSH and deploy app
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@web-service
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
@@ -22,4 +22,4 @@ jobs:
             git pull origin web-service
             npm install
             npm run migrate up
-            pm2 restart auth-api
+            pm2 restart formapp-server
