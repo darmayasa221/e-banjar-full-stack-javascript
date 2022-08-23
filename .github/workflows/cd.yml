@@ -19,7 +19,7 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         script: |
           cd ~/e-banjar-full-stack-javascript
-          git pull web-service
+          git pull origin web-service
           npm install
           npm run migrate up
           pm2 restart e-banjar
