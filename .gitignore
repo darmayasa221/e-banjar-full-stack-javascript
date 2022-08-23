@@ -1,5 +1,7 @@
 node_modules
+dist
 config/database
 coverage
 .env
 package-lock.json
+e-banjar.pem
