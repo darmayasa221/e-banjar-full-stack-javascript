@@ -20,4 +20,6 @@ jobs:
         script: |
           cd ~/e-banjar-full-stack-javascript
           git pull origin web-service
-          node
+          npm install
+          npm run migrate up
+          pm2 restart e-banjar
