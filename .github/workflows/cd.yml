@@ -17,9 +17,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: |
-            cd ~/e-banjar-full-stack-javascript
-            git pull origin web-service
-            npm install
-            npm run migrate up
-            pm2 restart formapp-server
+          script: whoami
