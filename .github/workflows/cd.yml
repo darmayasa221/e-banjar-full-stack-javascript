@@ -17,4 +17,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: whoami
+          script: |
+            cd ~/e-banjar-full-stack-javascript
+            touch hello.txt
+            npm --version
