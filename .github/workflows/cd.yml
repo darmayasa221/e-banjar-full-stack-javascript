@@ -1,23 +1,25 @@
 name: Continuous Deployment
-
-on:
+ 
+on: 
   push:
     branches:
       - web-service
-
+ 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+ 
     steps:
-      - name: SSH and deploy app
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            cd ~/e-banjar-full-stack-javascript
-            touch hello.txt
-            npm --version
+    - name: SSH and deploy app
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          cd ~/developer-expert-final-project
+          git pull web-service
+          npm install
+          npm run migrate up
+          pm2 restart e-banjar
